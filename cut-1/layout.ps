@@ -1,0 +1,66 @@
+%!
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 2297 1276
+%%Pages: 1
+%%BeginProlog
+/inch 72 def
+/mm_size inch 25.4 div def
+/bdef { bind def } bind def
+/inches { inch mul } bdef
+/mm { mm_size mul } bdef
+/thickness 2.2 mm def
+/up { 0 exch rlineto } bdef  /right { 0 rlineto } bdef
+/down { neg up } bdef        /left { neg right } bdef
+/box { dup up  exch right  down  closepath } bdef
+%%EndProlog
+
+%%Page: 1 1
+save
+20 20 translate
+0 0 moveto
+/width 512 mm def
+/height 384 mm def
+width height box stroke
+/rect { 0 0 moveto box stroke } bdef
+/stevia { 52 mm 52 mm rect } bdef
+/napkinbox { 109 mm 65 mm rect } bdef
+gsave 
+    8 mm 65 mm add  66 mm 20 mm add  translate 90 rotate napkinbox
+grestore
+/diameter-circle {
+    2 div dup dup               % centerx centery r
+    0 360 arc
+} bdef
+/herbalife-jar { 100 mm diameter-circle stroke } bdef
+/jar-spacing 105 mm def
+/herbalife-row {
+        gsave { herbalife-jar jar-spacing 0 translate } repeat grestore
+        jar-spacing 2 div  jar-spacing -60 sin mul  translate
+} bdef
+/herbalife-triangle { gsave 4 -1 1 { herbalife-row } for grestore } bdef
+gsave
+    5 mm 279 mm translate herbalife-triangle
+grestore
+/spice-jar { 69 mm diameter-circle stroke } bdef
+gsave
+    430 mm 8 mm translate
+    gsave 3 { spice-jar -74 mm 0 translate } repeat grestore
+    0 74 mm translate spice-jar
+grestore
+/oil-bottle { 68 mm diameter-circle stroke } bdef
+gsave 439 mm 310 mm translate oil-bottle grestore
+gsave
+    width 57 mm sub 5 mm sub  250 mm translate  stevia
+    0 -58 mm translate stevia
+grestore
+/salt-jar { 56 mm diameter-circle stroke } bdef
+gsave
+    width 57 mm sub  56 mm sub  5 mm sub  8 mm sub  224 mm translate
+    salt-jar
+grestore
+/tea-box { 132 mm 72 mm rect } bdef
+gsave 8 mm 8 mm translate tea-box grestore
+
+restore
+showpage
+%%EOF
