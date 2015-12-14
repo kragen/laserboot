@@ -229,4 +229,24 @@ function mm(mm) {
 
 init();
 
+/*
+ * So now I apparently have reasonable intersection tests, so I can
+ * proceed to trying to compute a layout for the individual horizontal
+ * members.  I think this is basically a matter of walking along the
+ * sorted intersection/deintersection and intersecting line events for
+ * the horizontal member in question and turning those into bits of
+ * contour to paste together, plus some nonsense at the ends of the
+ * hlines to get them to glom onto the vertical support members.
+ *
+ * This requires a different set of primitives than I used for the
+ * layout, though.  Here I need to glom together a bunch of path
+ * segments, or maybe subtract a bunch of shapes from an initial strip
+ * and then add chamfers or radii, not position rectangles and
+ * circles.
+ *
+ * It would also be like super useful to see even a crude isometric
+ * wireframe 3-D rendering of the different pieces that are to be cut,
+ * in relation to each other.
+ */
+
 //</script>
