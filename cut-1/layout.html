@@ -1,27 +1,35 @@
 <!--
 /* --><title>shelf layout scratchpad</title><meta charset="utf-8" />
-Here’s the layout rendered into SVG with JS.
+Here’s the layout rendered into SVG with JS, with some intersection testing.
 <p>
 <svg id="svg" style="border: 1px solid black"></svg>
+<p id="expl"></p>
 <script>
 /**/
 function init() {
-  instantiateLayout(new SvgCanvas(document.getElementById('svg'), 512, 384));
+  instantiateLayout(new SvgCanvas($('svg'), 512, 384));
+  var tester = new TesterCanvas(512, 384);
+  instantiateLayout(tester);
+  $('expl').innerHTML = tester.intersections();
 }
 
-function instantiateLayout(svg) {
+function $(id) {
+  return document.getElementById(id);
+}
+
+function instantiateLayout(cvs) {
   // Napkin box.
-  svg.rect(mm(65), mm(109), mm(8), mm(86));
+  cvs.rect(mm(65), mm(109), mm(8), mm(86));
   // Stevia and vanilla bottles.
-  var sx = svg.width - 57 - 5, sy = 250;
-  svg.rect(mm(52), mm(52), mm(sx), mm(sy));
-  svg.rect(mm(52), mm(52), mm(sx), mm(sy - 58));
+  var sx = cvs.width - 57 - 5, sy = 250;
+  cvs.rect(mm(52), mm(52), mm(sx), mm(sy));
+  cvs.rect(mm(52), mm(52), mm(sx), mm(sy - 58));
 
   // Triangle of Herbalife jars.
   var jarSpacing = 105;
   for (var ii = 0; ii < 4; ii++) {
     for (var jj = 0; jj <= ii; jj++) {
-      svg.circle(mm(5 + jarSpacing * jj + jarSpacing * (3 - ii) / 2),
+      cvs.circle(mm(5 + jarSpacing * jj + jarSpacing * (3 - ii) / 2),
                  mm(279 - Math.sin(Math.PI * 60 / 180) * jarSpacing * (3 - ii)),
                  mm(100));
     }
@@ -29,36 +37,36 @@ function instantiateLayout(svg) {
 
   // Spice jars.
   var sjx = 430, sjy = 8;
-  svg.circle(mm(sjx), mm(sjy + 74), 69);
+  cvs.circle(mm(sjx), mm(sjy + 74), 69);
   for (ii = 0; ii < 3; ii++) {
-    svg.circle(mm(sjx), mm(sjy), 69);
+    cvs.circle(mm(sjx), mm(sjy), 69);
     sjx -= 74;
   }
 
   // Oil bottle.
-  svg.circle(mm(439), mm(310), mm(68));
+  cvs.circle(mm(439), mm(310), mm(68));
 
   // Salt jar.
-  svg.circle(mm(svg.width - 57 - 56 - 5 - 8), mm(224), mm(56));
+  cvs.circle(mm(cvs.width - 57 - 56 - 5 - 8), mm(224), mm(56));
 
   // Tea box.
-  svg.rect(mm(132), mm(72), mm(8), mm(8));
+  cvs.rect(mm(132), mm(72), mm(8), mm(8));
 
   // Supports.
-  svg.hline(mm(330));
-  svg.hline(mm(270));
-  svg.hline(mm(235));
-  svg.hline(mm(210));
-  svg.hline(mm(140));
-  svg.hline(mm(115));
-  svg.hline(mm(64));
-  svg.hline(mm(20));
+  cvs.hline(mm(330));
+  cvs.hline(mm(270));
+  cvs.hline(mm(235));
+  cvs.hline(mm(210));
+  cvs.hline(mm(140));
+  cvs.hline(mm(115));
+  cvs.hline(mm(64));
+  cvs.hline(mm(20));
 
-  svg.vline(mm(48));
-  svg.vline(mm(159.5));
-  svg.vline(mm(265));
-  svg.vline(mm(374));
-  svg.vline(mm(472));
+  cvs.vline(mm(48));
+  cvs.vline(mm(159.5));
+  cvs.vline(mm(265));
+  cvs.vline(mm(374));
+  cvs.vline(mm(472));
 }
 
 function SvgCanvas(element, width, height) {
@@ -100,6 +108,55 @@ SvgCanvas.prototype.vline = function(xx) {
        });
 };
 
+function TesterCanvas(ww, hh) {
+  this.width = ww;
+  this.height = hh;
+  this.hlines = [];
+  this.vlines = [];
+  this.rects = [];
+  this.circles = [];
+}
+
+TesterCanvas.prototype.rect = function(ww, hh, xx, yy) {
+  this.rects.push({w: ww, h: hh, x: xx, y: yy});
+};
+
+TesterCanvas.prototype.circle = function(xx, yy, diameter) {
+  this.circles.push({cx: xx+diameter/2, cy: yy+diameter/2, r: diameter/2});
+};
+
+TesterCanvas.prototype.hline = function(yy) {
+  this.hlines.push(yy);
+};
+
+TesterCanvas.prototype.vline = function(xx) {
+  this.vlines.push(xx);
+};
+
+TesterCanvas.prototype.intersections = function() {
+  var rv = [];
+  for (var ii = 0; ii < this.hlines.length; ii++) {
+    var yy = this.hlines[ii];
+    rv.push("hline at "+yy+". ");
+    for (var jj = 0; jj < this.rects.length; jj++) {
+      var rect = this.rects[jj];
+      if (yy >= rect.y && yy <= rect.y + rect.h) {
+        rv.push("intersects rect "+jj+" from "+rect.x+" to "+(rect.x+rect.w)+". ");
+      }
+    }
+    for (jj = 0; jj < this.circles.length; jj++) {
+      var circle = this.circles[jj];
+      if (yy >= circle.cy - circle.r && yy <= circle.cy + circle.r) {
+        var dx = Math.sqrt(circle.r*circle.r - Math.pow(circle.cy - yy, 2));
+        rv.push("intersects circle "+jj+" from "+(circle.cx-dx)+" to "+(circle.cx+dx)+". ");
+      }
+    }
+  }
+  for (ii = 0; ii < this.vlines.length; ii++) {
+    rv.push("vline at "+this.vlines[ii]+". ");
+  }
+  return rv.join('');
+};
 
 function attr(element, properties) {
   for (var property in properties) {
