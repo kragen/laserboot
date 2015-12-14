@@ -2,12 +2,16 @@
 /* --><title>shelf layout scratchpad</title><meta charset="utf-8" />
 Here’s the layout rendered into SVG with JS, with some intersection testing.
 <p>
-<svg id="svg" style="border: 1px solid black"></svg>
+<style>
+svg { border: 1px solid black }
+</style>
+<svg id="layout"></svg>
 <p id="expl"></p>
+<svg id="cuts"></svg>
 <script>
 /**/
 function init() {
-  instantiateLayout(new SvgCanvas($('svg'), 512, 384));
+  instantiateLayout(new SvgCanvas($('layout'), 512, 384));
   var tester = new TesterCanvas(512, 384);
   instantiateLayout(tester);
   $('expl').innerHTML = tester.intersections();
