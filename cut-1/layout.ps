@@ -61,6 +61,27 @@ grestore
 /tea-box { 132 mm 72 mm rect } bdef
 gsave 8 mm 8 mm translate tea-box grestore
 
+/hline {
+    gsave 1 0 0 setrgbcolor 0 exch moveto width 0 rlineto stroke grestore
+} bdef
+330 mm hline
+270 mm hline
+235 mm hline
+210 mm hline
+140 mm hline
+115 mm hline
+64 mm hline
+20 mm hline
+
+/vline {
+    gsave 1 0 0 setrgbcolor 0 moveto 0 height rlineto stroke grestore
+} bdef
+48 mm vline
+159.5 mm vline
+265 mm vline
+374 mm vline
+472 mm vline
+
 restore
 showpage
 %%EOF
