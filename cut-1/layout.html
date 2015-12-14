@@ -1,20 +1,123 @@
 <!--
-/* --><title>shelf layout scratchpad</title>
-So far this is just kind of an SVG hello-world.
-<svg id="svg" width=300 height=300></svg>
+/* --><title>shelf layout scratchpad</title><meta charset="utf-8" />
+Here’s the layout rendered into SVG with JS.
+<p>
+<svg id="svg" style="border: 1px solid black"></svg>
 <script>
 /**/
-function svgElement(svg, tag) {
+function init() {
+  instantiateLayout(new SvgCanvas(document.getElementById('svg'), 512, 384));
+}
+
+function instantiateLayout(svg) {
+  // Napkin box.
+  svg.rect(mm(65), mm(109), mm(8), mm(86));
+  // Stevia and vanilla bottles.
+  var sx = svg.width - 57 - 5, sy = 250;
+  svg.rect(mm(52), mm(52), mm(sx), mm(sy));
+  svg.rect(mm(52), mm(52), mm(sx), mm(sy - 58));
+
+  // Triangle of Herbalife jars.
+  var jarSpacing = 105;
+  for (var ii = 0; ii < 4; ii++) {
+    for (var jj = 0; jj <= ii; jj++) {
+      svg.circle(mm(5 + jarSpacing * jj + jarSpacing * (3 - ii) / 2),
+                 mm(279 - Math.sin(Math.PI * 60 / 180) * jarSpacing * (3 - ii)),
+                 mm(100));
+    }
+  }
+
+  // Spice jars.
+  var sjx = 430, sjy = 8;
+  svg.circle(mm(sjx), mm(sjy + 74), 69);
+  for (ii = 0; ii < 3; ii++) {
+    svg.circle(mm(sjx), mm(sjy), 69);
+    sjx -= 74;
+  }
+
+  // Oil bottle.
+  svg.circle(mm(439), mm(310), mm(68));
+
+  // Salt jar.
+  svg.circle(mm(svg.width - 57 - 56 - 5 - 8), mm(224), mm(56));
+
+  // Tea box.
+  svg.rect(mm(132), mm(72), mm(8), mm(8));
+
+  // Supports.
+  svg.hline(mm(330));
+  svg.hline(mm(270));
+  svg.hline(mm(235));
+  svg.hline(mm(210));
+  svg.hline(mm(140));
+  svg.hline(mm(115));
+  svg.hline(mm(64));
+  svg.hline(mm(20));
+
+  svg.vline(mm(48));
+  svg.vline(mm(159.5));
+  svg.vline(mm(265));
+  svg.vline(mm(374));
+  svg.vline(mm(472));
+}
+
+function SvgCanvas(element, width, height) {
+  this.element = element;
+  this.width = width;
+  this.height = height;
+  attr(this.element, {width: width, height: height});
+}
+
+SvgCanvas.prototype.rect = function(ww, hh, xx, yy) {
+  attr(makeSvgElement(this.element, 'path'),
+       { d: 'M '+xx+' '+(this.height-yy)+' l '+ww+' 0 l 0 '+-hh+' l '+-ww+' 0 z'
+       , fill: 'none'
+       , stroke: 'black'
+       });
+};
+
+SvgCanvas.prototype.circle = function(minx, miny, diameter) {
+  attr(makeSvgElement(this.element, 'circle'),
+       { cx: minx + diameter/2
+       , cy: this.height - (miny + diameter/2)
+       , r: diameter/2
+       , fill: 'none'
+       , stroke: 'black'
+       });
+};
+
+SvgCanvas.prototype.hline = function(yy) {
+  attr(makeSvgElement(this.element, 'path'),
+       { d: 'M 0 '+(this.height-yy)+' l '+this.width+' 0'
+       , stroke: 'red'
+       });
+};
+
+SvgCanvas.prototype.vline = function(xx) {
+  attr(makeSvgElement(this.element, 'path'),
+       { d: 'M '+xx+' 0 l 0 '+this.height
+       , stroke: 'red'
+       });
+};
+
+
+function attr(element, properties) {
+  for (var property in properties) {
+    if (properties.hasOwnProperty(property)) {
+      element.setAttribute(property, properties[property]);
+    }
+  }
+}
+
+function makeSvgElement(svg, tag) {
   var fuckingSvgNamespace = 'http://www.w3.org/2000/svg';
   var element = document.createElementNS(fuckingSvgNamespace, tag);
   svg.appendChild(element);
   return element;
 }
 
-function init() {
-  var svg = document.getElementById('svg');
-  var box = svgElement(svg, 'path');
-  box.setAttribute('d', 'M 20 20 L 30 40 L 20 50 z');
+function mm(mm) {
+  return mm;
 }
 
 init();
