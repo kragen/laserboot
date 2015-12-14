@@ -7,8 +7,9 @@ Here’s the layout rendered into SVG with JS, with some intersection testing.
 <script>
 /**/
 function init() {
-  instantiateLayout(new SvgCanvas($('svg'), 512, 384));
-  var tester = new TesterCanvas(512, 384);
+  var layoutCanvas = new SvgCanvas($('svg'), 512, 384);
+  instantiateLayout(layoutCanvas);
+  var tester = new TesterCanvas(512, 384, layoutCanvas);
   instantiateLayout(tester);
   $('expl').innerHTML = tester.intersections();
 }
@@ -108,9 +109,10 @@ SvgCanvas.prototype.vline = function(xx) {
        });
 };
 
-function TesterCanvas(ww, hh) {
+function TesterCanvas(ww, hh, debugCanvas) {
   this.width = ww;
   this.height = hh;
+  this.debugCanvas = debugCanvas;
   this.hlines = [];
   this.vlines = [];
   this.rects = [];
@@ -141,6 +143,7 @@ TesterCanvas.prototype.intersections = function() {
     var intersections = hlineIntersections(yy, this.rects, this.circles);
     for (var jj = 0; jj < intersections.length; jj++) {
       rv.push(intersections[jj].describe());
+      intersections[jj].drawDebug(this.debugCanvas);
     }
   }
 
@@ -161,6 +164,7 @@ TesterCanvas.prototype.intersections = function() {
                                        flippedCircles);
     for (jj = 0; jj < intersections.length; jj++) {
       rv.push(intersections[jj].describe());
+      intersections[jj].drawDebugFlipped(this.debugCanvas);
     }
   }
   return rv.join('');
@@ -171,7 +175,7 @@ function hlineIntersections(yy, rects, circles) {
   for (var jj = 0; jj < rects.length; jj++) {
     var rect = rects[jj];
     if (yy >= rect.y && yy <= rect.y + rect.h) {
-      rv.push(new Intersection("rect "+jj, rect.x, rect.x+rect.w));
+      rv.push(new Intersection("rect "+jj, rect.x, rect.x+rect.w, yy));
     }
   }
 
@@ -179,20 +183,29 @@ function hlineIntersections(yy, rects, circles) {
     var circle = circles[jj];
     if (yy >= circle.cy - circle.r && yy <= circle.cy + circle.r) {
       var dx = Math.sqrt(circle.r*circle.r - Math.pow(circle.cy - yy, 2));
-      rv.push(new Intersection("circle "+jj, circle.cx - dx, circle.cx + dx));
+      rv.push(new Intersection("circle "+jj, circle.cx - dx, circle.cx + dx, yy));
     }
   }
   return rv;
 }
 
-function Intersection(object, start, end) {
+function Intersection(object, start, end, y) {
   this.object = object;
   this.start = start;
   this.end = end;
+  this.y = y;
 }
 
 Intersection.prototype.describe = function() {
   return "intersects "+this.object+" from "+this.start+" to "+this.end+". ";
+};
+
+Intersection.prototype.drawDebug = function(canvas) {
+  canvas.rect(this.end - this.start, 2.5, this.start, this.y - 1.25);
+};
+
+Intersection.prototype.drawDebugFlipped = function(canvas) {
+  canvas.rect(2.5, this.end - this.start, this.y - 1.25, this.start);
 };
 
 function attr(element, properties) {
