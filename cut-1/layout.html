@@ -138,24 +138,61 @@ TesterCanvas.prototype.intersections = function() {
   for (var ii = 0; ii < this.hlines.length; ii++) {
     var yy = this.hlines[ii];
     rv.push("hline at "+yy+". ");
-    for (var jj = 0; jj < this.rects.length; jj++) {
-      var rect = this.rects[jj];
-      if (yy >= rect.y && yy <= rect.y + rect.h) {
-        rv.push("intersects rect "+jj+" from "+rect.x+" to "+(rect.x+rect.w)+". ");
-      }
-    }
-    for (jj = 0; jj < this.circles.length; jj++) {
-      var circle = this.circles[jj];
-      if (yy >= circle.cy - circle.r && yy <= circle.cy + circle.r) {
-        var dx = Math.sqrt(circle.r*circle.r - Math.pow(circle.cy - yy, 2));
-        rv.push("intersects circle "+jj+" from "+(circle.cx-dx)+" to "+(circle.cx+dx)+". ");
-      }
+    var intersections = hlineIntersections(yy, this.rects, this.circles);
+    for (var jj = 0; jj < intersections.length; jj++) {
+      rv.push(intersections[jj].describe());
     }
   }
+
+  var flippedRects = [], flippedCircles = [];
+  for (ii = 0; ii < this.rects.length; ii++) {
+    var rect = this.rects[ii];
+    flippedRects.push({x: rect.y, y: rect.x, w: rect.h, h: rect.w});
+  }
+  for (ii = 0; ii < this.circles.length; ii++) {
+    var circle = this.circles[ii];
+    flippedCircles.push({cx: circle.cy, cy: circle.cx, r: circle.r});
+  }
+
   for (ii = 0; ii < this.vlines.length; ii++) {
     rv.push("vline at "+this.vlines[ii]+". ");
+    intersections = hlineIntersections(this.vlines[ii],
+                                       flippedRects,
+                                       flippedCircles);
+    for (jj = 0; jj < intersections.length; jj++) {
+      rv.push(intersections[jj].describe());
+    }
   }
   return rv.join('');
+};
+
+function hlineIntersections(yy, rects, circles) {
+  var rv = [];
+  for (var jj = 0; jj < rects.length; jj++) {
+    var rect = rects[jj];
+    if (yy >= rect.y && yy <= rect.y + rect.h) {
+      rv.push(new Intersection("rect "+jj, rect.x, rect.x+rect.w));
+    }
+  }
+
+  for (jj = 0; jj < circles.length; jj++) {
+    var circle = circles[jj];
+    if (yy >= circle.cy - circle.r && yy <= circle.cy + circle.r) {
+      var dx = Math.sqrt(circle.r*circle.r - Math.pow(circle.cy - yy, 2));
+      rv.push(new Intersection("circle "+jj, circle.cx - dx, circle.cx + dx));
+    }
+  }
+  return rv;
+}
+
+function Intersection(object, start, end) {
+  this.object = object;
+  this.start = start;
+  this.end = end;
+}
+
+Intersection.prototype.describe = function() {
+  return "intersects "+this.object+" from "+this.start+" to "+this.end+". ";
 };
 
 function attr(element, properties) {
