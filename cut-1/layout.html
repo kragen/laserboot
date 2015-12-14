@@ -1,0 +1,22 @@
+<!--
+/* --><title>shelf layout scratchpad</title>
+So far this is just kind of an SVG hello-world.
+<svg id="svg" width=300 height=300></svg>
+<script>
+/**/
+function svgElement(svg, tag) {
+  var fuckingSvgNamespace = 'http://www.w3.org/2000/svg';
+  var element = document.createElementNS(fuckingSvgNamespace, tag);
+  svg.appendChild(element);
+  return element;
+}
+
+function init() {
+  var svg = document.getElementById('svg');
+  var box = svgElement(svg, 'path');
+  box.setAttribute('d', 'M 20 20 L 30 40 L 20 50 z');
+}
+
+init();
+
+//</script>

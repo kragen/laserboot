@@ -82,6 +82,34 @@ gsave 8 mm 8 mm translate tea-box grestore
 374 mm vline
 472 mm vline
 
+% Okay, now what?  I have a layout for the supports of the shelving,
+% but now I need to convert it into a layout for laser-cutting.  And
+% fast!  I need to sleep tonight!  That means I need to find the
+% intersections between the bottles and whatnot and the support lines,
+% as well as the intersections between the support lines themselves,
+% in order to figure out how to do a laser-cutting layout for them.
+
+% One way to do that would be to move the above page and a half of
+% code specifying where things are into another language, such as
+% Python or JS, and then do the calculations there.  A different, more
+% incremental way to do it would be to augment the definitions of
+% hline, vline, rect, and diameter-circle to store these calculations.
+
+% Probably the first approach is better, for a couple of reasons.
+% First, data structures in PostScript are kind of a pain, because
+% although you have dicts and everything, everything has to be
+% preallocated.  Second, the feedback cycle in PostScript is never
+% going to be very good; I’m already at 7 seconds latency on this
+% netbook to see what I’m doing, I can’t see what I’m doing while I’m
+% doing it, and it’s just going to get worse from here; while on the
+% other hand, Python and especially JS have very easy ways to make
+% things appear on the screen and like move them around and shit.
+% Third, I feel that PostScript is harder to read than the other
+% languages.
+
+% ...and yet I have left this sit for hours while reading Existential
+% Comics.
+
 restore
 showpage
 %%EOF
