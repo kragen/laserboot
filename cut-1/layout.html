@@ -11,8 +11,9 @@ svg { border: 1px solid black }
 <script>
 /**/
 function init() {
-  instantiateLayout(new SvgCanvas($('layout'), 512, 384));
-  var tester = new TesterCanvas(512, 384);
+  var layoutCanvas = new SvgCanvas($('layout'), 512, 384);
+  instantiateLayout(layoutCanvas);
+  var tester = new TesterCanvas(512, 384, layoutCanvas);
   instantiateLayout(tester);
   $('expl').innerHTML = tester.intersections();
 }
@@ -112,9 +113,10 @@ SvgCanvas.prototype.vline = function(xx) {
        });
 };
 
-function TesterCanvas(ww, hh) {
+function TesterCanvas(ww, hh, debugCanvas) {
   this.width = ww;
   this.height = hh;
+  this.debugCanvas = debugCanvas;
   this.hlines = [];
   this.vlines = [];
   this.rects = [];
@@ -142,24 +144,72 @@ TesterCanvas.prototype.intersections = function() {
   for (var ii = 0; ii < this.hlines.length; ii++) {
     var yy = this.hlines[ii];
     rv.push("hline at "+yy+". ");
-    for (var jj = 0; jj < this.rects.length; jj++) {
-      var rect = this.rects[jj];
-      if (yy >= rect.y && yy <= rect.y + rect.h) {
-        rv.push("intersects rect "+jj+" from "+rect.x+" to "+(rect.x+rect.w)+". ");
-      }
-    }
-    for (jj = 0; jj < this.circles.length; jj++) {
-      var circle = this.circles[jj];
-      if (yy >= circle.cy - circle.r && yy <= circle.cy + circle.r) {
-        var dx = Math.sqrt(circle.r*circle.r - Math.pow(circle.cy - yy, 2));
-        rv.push("intersects circle "+jj+" from "+(circle.cx-dx)+" to "+(circle.cx+dx)+". ");
-      }
+    var intersections = hlineIntersections(yy, this.rects, this.circles);
+    for (var jj = 0; jj < intersections.length; jj++) {
+      rv.push(intersections[jj].describe());
+      intersections[jj].drawDebug(this.debugCanvas);
     }
   }
+
+  var flippedRects = [], flippedCircles = [];
+  for (ii = 0; ii < this.rects.length; ii++) {
+    var rect = this.rects[ii];
+    flippedRects.push({x: rect.y, y: rect.x, w: rect.h, h: rect.w});
+  }
+  for (ii = 0; ii < this.circles.length; ii++) {
+    var circle = this.circles[ii];
+    flippedCircles.push({cx: circle.cy, cy: circle.cx, r: circle.r});
+  }
+
   for (ii = 0; ii < this.vlines.length; ii++) {
     rv.push("vline at "+this.vlines[ii]+". ");
+    intersections = hlineIntersections(this.vlines[ii],
+                                       flippedRects,
+                                       flippedCircles);
+    for (jj = 0; jj < intersections.length; jj++) {
+      rv.push(intersections[jj].describe());
+      intersections[jj].drawDebugFlipped(this.debugCanvas);
+    }
   }
   return rv.join('');
+};
+
+function hlineIntersections(yy, rects, circles) {
+  var rv = [];
+  for (var jj = 0; jj < rects.length; jj++) {
+    var rect = rects[jj];
+    if (yy >= rect.y && yy <= rect.y + rect.h) {
+      rv.push(new Intersection("rect "+jj, rect.x, rect.x+rect.w, yy));
+    }
+  }
+
+  for (jj = 0; jj < circles.length; jj++) {
+    var circle = circles[jj];
+    if (yy >= circle.cy - circle.r && yy <= circle.cy + circle.r) {
+      var dx = Math.sqrt(circle.r*circle.r - Math.pow(circle.cy - yy, 2));
+      rv.push(new Intersection("circle "+jj, circle.cx - dx, circle.cx + dx, yy));
+    }
+  }
+  return rv;
+}
+
+function Intersection(object, start, end, y) {
+  this.object = object;
+  this.start = start;
+  this.end = end;
+  this.y = y;
+}
+
+Intersection.prototype.describe = function() {
+  return "intersects "+this.object+" from "+this.start+" to "+this.end+". ";
+};
+
+Intersection.prototype.drawDebug = function(canvas) {
+  canvas.rect(this.end - this.start, 2.5, this.start, this.y - 1.25);
+};
+
+Intersection.prototype.drawDebugFlipped = function(canvas) {
+  canvas.rect(2.5, this.end - this.start, this.y - 1.25, this.start);
 };
 
 function attr(element, properties) {
@@ -183,4 +233,25 @@ function mm(mm) {
 
 init();
 
+/*
+ * So now I apparently have reasonable intersection tests, so I can
+ * proceed to trying to compute a layout for the individual horizontal
+ * members.  I think this is basically a matter of walking along the
+ * sorted intersection/deintersection and intersecting line events for
+ * the horizontal member in question and turning those into bits of
+ * contour to paste together, plus some nonsense at the ends of the
+ * hlines to get them to glom onto the vertical support members.
+ *
+ * This requires a different set of primitives than I used for the
+ * layout, though.  Here I need to glom together a bunch of path
+ * segments, or maybe subtract a bunch of shapes from an initial strip
+ * and then add chamfers or radii, not position rectangles and
+ * circles.
+ *
+ * It would also be like super useful to see even a crude isometric
+ * wireframe 3-D rendering of the different pieces that are to be cut,
+ * in relation to each other.
+ */
+
 //</script>
+
