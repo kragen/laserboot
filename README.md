@@ -267,6 +267,15 @@ constraint models are more flexible than procedural parametric models,
 the adoption of such systems is somewhat impeded by the difficulty in
 making them work and figuring out why they don’t work when they don’t.
 
+Design parametrically is generally a *recursive* process: a parametric
+design includes smaller parametric designs within it.  For example, a
+[planar spring snap-fit
+joint](http://www.deferredprocrastination.co.uk/blog/2013/so-whats-a-practical-laser-cut-clip-size/)
+has a design parameterized by the loads it must bear and perhaps
+safety factors and material properties; but a parametric model of a
+three-dimensional box that snap-fits together might contain a number
+of these snap-fit joints within it.
+
 ### Optimization ###
 
 The enormous potential of digital fabrication is to enable design
@@ -332,6 +341,14 @@ such things.  But these optimization concerns cut across these
 traditional abstraction layers; to the point that you can allow the
 optimizer to cut across those layers, it can produce a much better
 design.
+
+As a very simple example, if you have a set of parts to laser-cut from
+a sheet of MDF, an arrangement on the sheet that nestles them together
+as much as possible will use less MDF and require much less cutting.
+If the optimization process is also capable of altering the shapes of
+the parts, it can make them fit together a great deal better — but
+that only works if it knows what objective the part shapes were
+intended to achieve.
 
 Optimization is in some sense a generalization of constraint
 satisfaction: constraints are absolute, all-or-none requirements,
