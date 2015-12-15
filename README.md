@@ -230,6 +230,43 @@ high-pressure plumbing and exotic materials.  For these reasons, I
 don’t think waterjet is currently a viable way to build a small-scale
 self-reproducing factory.
 
+### Parametric modeling ###
+
+An ordinary design is a single, fixed shape and set of dimensions.  A
+parametric design is a potentially infinite set of shapes of different
+dimensions; it can be adapted to different circumstances.  For
+example, [BoxMaker](http://boxmaker.connectionlab.org/) is a
+parametric design for a right rectangular parallelepiped to be cut on
+a laser cutter, presented as a web site.
+
+In some cases, a parametric model is defined with certain parameters
+as inputs — in the case of BoxMaker, the parameters are width, depth,
+height, units, material thickness, notch length, cut width, and a
+couple of booleans — while others are outputs.  Such a parametric
+model can be thought of as merely a procedure which computes a design
+given those inputs.
+
+[OpenSCAD](http://openscad.org/) is a popular system for such
+procedural parametric design, commonly used for FDM design (most of
+the parametric designs on Thingiverse are designed with OpenSCAD), but
+it is very limited; because the model procedures have no access to the
+generated geometry, it’s impossible to do something as simple as a
+fillet or a gusset in a generic way, and often quite difficult to do
+it for a given design.
+
+Some more advanced parametric modeling systems, like that in
+[SolveSpace](http://solvespace.com/), use a more flexible “constraint
+satisfaction” paradigm.  A constraint-satisfaction parametric model
+consists mostly of a set of constraints relating its various
+parameters.  For example, a square might have eleven parameters: upper
+left, upper center, upper right, left center, center, right center,
+lower left, lower center, lower right, side length, and rotation.
+From any three of these parameters, and any two other than side length
+and rotation, the other nine can be computed.  Although parametric
+constraint models are more flexible than procedural parametric models,
+the adoption of such systems is somewhat impeded by the difficulty in
+making them work and figuring out why they don’t work when they don’t.
+
 ### Optimization ###
 
 The enormous potential of digital fabrication is to enable design
