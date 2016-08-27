@@ -50,6 +50,7 @@ Practical (?) problems to solve with this shit:
 - pants
 - a bicycle
 - gears
+- a spice rack
 
 I need to make a plan to start making stuff regularly.  I think I will
 make a queue with some finished fallback things in it and fabricate a
@@ -63,3 +64,15 @@ Hopefully I can start by cutting something out *tomorrow*, 2016-08-27.
 Max58 is open tomorrow from 10:30 to 14:00; I want to be there at
 12:00 with money and two files ready, just to be sure.  That means I
 need to change money in the morning.
+
+***
+
+Okay, I did that.  Except that it cost AR$480 (US$31.58 at
+AR$15.20/US$), and it seems like it's going to be hard to keep to only
+US$15 per day with daily cuts, even though today's can be a twofer
+since nothing is open tomorrow.  Maybe I should shoot for US$20 per
+day instead, bringing down the time-to-wishing-I'd-bought-a-laser-
+cutter to 400 days instead of 533 (which was a lot less than three
+years anyway.
+
+At US$20/day, the budget is US$610 per month.
