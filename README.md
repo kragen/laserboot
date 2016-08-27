@@ -53,6 +53,9 @@ with a much larger range of materials, including materials with two to
 three orders of magnitude better properties than the PLA and ABS used
 in FDM.
 
+(Maybe “panel cutting” or “sheet cutting” is a better name for this
+category?  “Panel cutting” seems to be an established term actually.)
+
 #### Nonmetal laser cutting ####
 
 The most accessible of these processes is laser cutting of plastics
@@ -323,6 +326,11 @@ incremental computation.
 (Topology-optimization results often look nothing at all like human
 designs, resembling trees, corals, jellyfish, or bones more than
 traditional industrial designs.)
+
+Another already-mainstream example is “nesting software”, which
+optimizes the use of a piece of stock by choosing where to cut things
+out from it so that they fit together well with a minimum of waste.
+This is commonly used in panel cutting, for example.
 
 But all of these are iterative algorithms: they take a proposed
 design, evaluate it in simulation, and use the results to come up with
