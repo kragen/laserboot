@@ -62,7 +62,7 @@ machines available and are willing to do quantity-1 runs for costs
 under US$10.
 
 The particular laser cutter I’ve tried so far will cut MDF sheets of
-up to 810×450mm with about 60μm precision and a kerf of about 100μm,
+up to 810×450 mm with about 60μm precision and a kerf of about 100μm,
 it has no minimum corner radius beyond that implied by the imprecision
 of the kerf itself, and the kerf can start or stop anywhere.  The
 laser cutter can additionally mark surfaces or engrave (“gouge”) them
