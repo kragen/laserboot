@@ -3,15 +3,11 @@ Laser boot, cut 3: Heckballs
 
 ![Photo of a small Heckballs structure assembled](assembled.jpg)
 
-Photos by Amapola Kieszlowski.
+Photos by Amapola Kieslowski.
 
 Heckballs are an edge-lap construction-set design I developed based on
 some ideas Matt Heck showed me in 2005 or 2006.  I went and got this
-design fabricated at [Max58][1] on 2016-08-27 for AR$400.  The peso is
-currently at AR$15.20 to the dollar, so that’s US$26.32.
-Unfortunately then I had to take a taxi for an extra AR$80.  This is
-about twice what I originally expected to pay, so I need to revise my
-mental cost model somehow.
+design fabricated at [Max58][1] on 2016-08-27 for AR$400.
 
 [1]: http://www.cortelaserpalermo.com.ar/
 
@@ -21,8 +17,10 @@ that one side has a 50-mm slit in it instead, so that two octagons can
 be slid together to make a sort of ball with 12 available slits for
 making edge-lap joints with other octagons.
 
-This design is just what I managed to put together in the morning in
-the hour after waking up.  It’s missing a lot of things, but I thought
+This design is just what I managed to put together Saturday morning in
+the hour after waking up, using plain PostScript,
+which is the CAD equivalent of stone knives.
+It’s missing a lot of things, but I thought
 it would be a mistake to miss out on the feedback available from
 fabricating it in order to perfect the design further.
 
@@ -119,8 +117,8 @@ fingers.  Taking advantage of this scrap would be an excellent way to
 increase the productivity of the process, since it’s already cut on
 most sides.
 
-Fabrication process
--------------------
+Fabrication process and costs
+-----------------------------
 
 I watched the laser cutter cutting.  It took about a second to cut
 each of the “freesidelength” lines, which turn out to be about
@@ -129,8 +127,21 @@ cutting time was 17'26".  It burst into flame at several points during
 the cutting process, never for more than a couple of seconds, and
 never leaving any visible deposit.
 
+The peso is
+currently at AR$15.20 to the dollar, so the AR$400 I paid is US$26.32.
+Unfortunately then I had to take a taxi for an extra AR$80.  This is
+about twice what I originally expected to pay, so I need to revise my
+mental cost model somehow.
+
 This works out to 32.7 seconds per octagon, AR$12.50 (US$0.82) per
 octagon, and AR$0.382 (US$0.0251) per second.
+
+Reviewing my notes, it seems like my original cost model was that 3 mm
+MDF should US$2.50/m², the cutting should happen at 30 mm/s, and the
+cutting should cost US$40 per hour, which would be the bulk of the
+cost.  Ultimately it seems like I was persuaded to use a smaller scale
+in order to fit an entire construction set into a single cutting
+session, which was probably a bad decision.
 
 I need to write some accurate cut path length calculation software,
 but a basic estimate is that each octagon contained seven regular
@@ -185,8 +196,10 @@ improvements:
 3. It should be prettier, somehow.  Maybe cutting inward at the
    corners in a curvy or spiraly kind of way or something.
 
-4. Smaller scale, for strength and for expressiveness.  (This may
-   bring the cutting cost out of balance, I’m not sure.)
+4. Smaller scale, for strength and for expressiveness (i.e. more
+   separate pieces per meter of cut, permitting more combinations).
+   This may bring the cutting cost out of balance with material cost,
+   I’m not sure.
 
 5. I should maybe paint it to cover up the burn marks and the tarry
    residue on the edges, which suggests adding an allowance for paint
