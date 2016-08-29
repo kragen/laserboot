@@ -1,0 +1,26 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 612 792
+%%Pages: 1
+%%BeginProlog
+
+% Turtle graphics.
+
+/seth { /theta exch def } def
+/rt { theta add seth } def
+/lt { neg rt } def
+/pd { /turtle-pen {rlineto} def } def
+/pu { /turtle-pen {rmoveto} def } def
+/here { [ /turtle-pen load  theta  currentpoint ] } def
+/return { aload pop  moveto  seth  /turtle-pen exch def } def
+/fd { dup  theta sin mul  exch theta cos mul  turtle-pen } def
+pd  0 seth
+
+%%EndProlog
+%%Page: 1 1
+save
+
+100 100 moveto  3 { 100 fd 120 rt } repeat  stroke
+
+restore
+showpage
+%%EOF
