@@ -210,7 +210,8 @@ improvements:
 7. I should correct the slit depth, and also I should do the collision
    allowance by reducing the outside size of the octagons, not by
    reducing the slit depth.  Also it needs to take into account the
-   45° pieces.
+   45° pieces.  (Actually it turns out that this isn’t important,
+   because it comes out almost exactly right by chance.)
 
 8. I should use 1 mm tabs.
 
@@ -226,5 +227,5 @@ improvements:
 <link rel="stylesheet" href="http://canonical.org/~kragen/style.css" />
 
 <style>
-img { float: right }
-</style>
+img { float: right; margin: 0.5em }
+</style> 
