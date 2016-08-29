@@ -56,6 +56,9 @@ in FDM.
 The only software I’ve found so far for planar digital fabrication in
 general is SheetCAM.
 
+(Maybe “panel cutting” or “sheet cutting” is a better name for this
+category?  “Panel cutting” seems to be an established term actually.)
+
 #### Nonmetal laser cutting ####
 
 The most accessible of these processes is laser cutting of plastics
@@ -65,7 +68,7 @@ machines available and are willing to do quantity-1 runs for costs
 under US$10.
 
 The particular laser cutter I’ve tried so far will cut MDF sheets of
-up to 810×450mm with about 60μm precision and a kerf of about 100μm,
+up to 810×450 mm with about 60μm precision and a kerf of about 100μm,
 it has no minimum corner radius beyond that implied by the imprecision
 of the kerf itself, and the kerf can start or stop anywhere.  The
 laser cutter can additionally mark surfaces or engrave (“gouge”) them
@@ -326,6 +329,11 @@ incremental computation.
 (Topology-optimization results often look nothing at all like human
 designs, resembling trees, corals, jellyfish, or bones more than
 traditional industrial designs.)
+
+Another already-mainstream example is “nesting software”, which
+optimizes the use of a piece of stock by choosing where to cut things
+out from it so that they fit together well with a minimum of waste.
+This is commonly used in panel cutting, for example.
 
 But all of these are iterative algorithms: they take a proposed
 design, evaluate it in simulation, and use the results to come up with

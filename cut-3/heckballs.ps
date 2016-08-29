@@ -1,0 +1,119 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 2297 1276
+%%Pages: 1
+%%BeginProlog
+% Trying to do some really simple parametric design in PostScript.
+% This file is a construction set I designed based on some work by
+% Matt Heck.  I call it Heckballs.
+/inch 72 def
+/mm_size inch 25.4 div def
+/bdef { bind def } bind def
+/inches { inch mul } bdef
+/mm { mm_size mul } bdef
+% These colors come from the Max58 service bureau.
+/cutting { 1 0 0 setrgbcolor } bdef
+/marking { 0 0 1 setrgbcolor } bdef
+/engraving { 0 0 0 setrgbcolor } bdef
+
+/up { 0 exch rlineto } bdef  /right { 0 rlineto } bdef
+/down { neg up } bdef        /left { neg right } bdef
+/box { dup up  exch right  down  closepath } bdef
+
+/max58-outline { 0 0 moveto  810 mm 450 mm box  stroke } bdef
+
+/thickness 3 mm def
+% Allow this much clearance to allow tabs to pass through slots
+% without colliding.  Last time the 3 mm MDF was actually more like
+% 3.1 mm, and cutting error is about 100 microns too, so this amount of
+% slop will hopefully allow tight but not impossible fits.
+/slop 0.15 mm def
+
+%%EndProlog
+%%Page: 1 1
+save
+
+.001 setlinewidth
+
+max58-outline cutting stroke
+
+% This version doesn't yet have:
+% - beams
+% - clips
+% - allowances to prevent collision at octagon centers
+% - labels
+% - design rule checks
+% But it's what I was able to manage in an hour this morning.
+/sq2 2 sqrt def  /isq2 1 sq2 div def
+/octsize 100 mm def
+/octcenter octsize 2 div def
+% The bounding square of the octagon is
+% 1/sqrt(2) sidelength + sidelength + 1/sqrt(2) sidelength.
+% This means that sidelength is octsize / (1 + sqrt(2)).
+/sidelength octsize 1 sq2 add div def
+/cornerpos isq2 sidelength mul def
+/slitwidth thickness slop add def
+/freesidelength sidelength slitwidth sub 2 div def
+/halfslit slitwidth 2 div def
+/depth octcenter 2 div thickness 2 div sub def
+
+% Tabs to keep the octagons from separating.
+/tabsize 0.75 mm def
+
+/ne { isq2 mul dup rlineto } bdef
+/nw { isq2 mul neg dup neg rlineto } bdef
+/se { isq2 mul dup neg rlineto } bdef
+/sw { isq2 mul neg dup rlineto } bdef
+
+/oct {
+    currentpoint                % lower left corner
+        cornerpos 0  rmoveto
+        freesidelength nw  depth ne  slitwidth nw  depth sw  freesidelength nw
+    moveto currentpoint
+        octcenter halfslit sub 0 rmoveto
+        octcenter up  slitwidth right  octcenter down
+    moveto currentpoint
+        0 octcenter halfslit sub rmoveto
+        depth right  slitwidth up  depth left
+    moveto currentpoint
+        0 octsize cornerpos sub rmoveto
+        freesidelength ne  depth se  slitwidth ne  depth nw  freesidelength ne
+        tabsize 0 rmoveto
+        freesidelength tabsize sub right
+        depth down  slitwidth right  depth up
+        freesidelength right
+        freesidelength se  depth sw  slitwidth se  depth ne  freesidelength se
+        0 tabsize neg rmoveto
+        freesidelength tabsize sub down
+        depth left  slitwidth down  depth right
+        freesidelength down
+        freesidelength sw  depth nw  slitwidth sw  depth se  freesidelength sw
+    moveto
+} bdef
+
+/row { 
+    oct
+    7 { octsize 0 rmoveto oct } repeat
+} bdef
+
+% Copy and paste is the idiot's loop construct.
+0 0 moveto
+currentpoint
+    row
+moveto
+    0 octsize rmoveto
+currentpoint
+    row
+moveto
+    0 octsize rmoveto
+currentpoint
+    row
+moveto
+    0 octsize rmoveto
+currentpoint
+    row
+moveto
+stroke
+
+restore
+showpage
+%%EOF

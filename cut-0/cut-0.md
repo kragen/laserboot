@@ -9,8 +9,8 @@ Summary
 -------
 
 This MDF can be compressed or stretched lengthwise without damage by
-about 1%, but not much more.  Its density is about 700 g/ℓ.  Though
-nominally 3mm, it’s probably about 3.1 mm thick.
+about 1%, but not much more.  Its density is about 700 g/ℓ.  Though
+nominally 3 mm, it’s probably about 3.1 mm thick.
 
 The Max58 laser cutter marks and cuts lines about 100μm in thickness
 in this MDF (250dpi), positioned to an accuracy of about 60μm
@@ -31,25 +31,25 @@ Initial observations
 The slot is too narrow to measure what I want to measure, because it
 grabs the pieces crosswise, making a super strong joint. I had to use
 pliers to pull the 20.3mm one out of the slot, damaging its surface.
-The 20.5 mm male tongue enters the 20 mm female slot successfully; the
-20.7 mm male tongue does not enter the 20 mm female slot successfully.
+The 20.5 mm male tongue enters the 20 mm female slot successfully; the
+20.7 mm male tongue does not enter the 20 mm female slot successfully.
 
-In the 20mm width of the hole from which the 20mm x 30mm female piece
-was removed, pieces up to 20.1mm fall out from either side, the 20.2mm
-piece fits snugly from either side, the 20.3mm piece fits snugger, the
-20.5 piece enters with great difficulty, the 20.7 mm piece enters with
-difficulty and some damage, the 20.9mm piece enters with force,
-leverage, and substantial damage, and the 21.1mm piece enters only
+In the 20 mm width of the hole from which the 20 mm × 30 mm female piece
+was removed, pieces up to 20.1mm fall out from either side, the 20.2 mm
+piece fits snugly from either side, the 20.3 mm piece fits snugger, the
+20.5 piece enters with great difficulty, the 20.7 mm piece enters with
+difficulty and some damage, the 20.9 mm piece enters with force,
+leverage, and substantial damage, and the 21.1 mm piece enters only
 when it’s badly torn up.
 
 From this I think we can infer that the kerf width is actually
-somewhere between 50 and 100 μm and is relatively consistent through
+somewhere between 50 and 100 μm and is relatively consistent through
 the material, even though the kerf looks thicker on the front than on
-the back; eyeballing, I think it’s about 300 μm on the front and 100
-μm on the back.
+the back; eyeballing, I think it’s about 300 μm on the front and 100 μm
+on the back.
 
 Also, I think we can infer that it’s possible to compress and stretch
-the MDF by about 0.4 mm over 20mm (2%, probably about half compressing
+the MDF by about 0.4 mm over 20mm (2%, probably about half compressing
 the tab and half stretching the slot) before damaging it, and with
 relatively little force.
 
