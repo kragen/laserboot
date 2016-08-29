@@ -53,6 +53,9 @@ with a much larger range of materials, including materials with two to
 three orders of magnitude better properties than the PLA and ABS used
 in FDM.
 
+The only software I’ve found so far for planar digital fabrication in
+general is SheetCAM.
+
 #### Nonmetal laser cutting ####
 
 The most accessible of these processes is laser cutting of plastics
@@ -267,7 +270,7 @@ constraint models are more flexible than procedural parametric models,
 the adoption of such systems is somewhat impeded by the difficulty in
 making them work and figuring out why they don’t work when they don’t.
 
-Design parametrically is generally a *recursive* process: a parametric
+Designing parametrically is generally a *recursive* process: a parametric
 design includes smaller parametric designs within it.  For example, a
 [planar spring snap-fit
 joint](http://www.deferredprocrastination.co.uk/blog/2013/so-whats-a-practical-laser-cut-clip-size/)
