@@ -74,6 +74,46 @@ Here’s the whole implementation of turtle graphics for PostScript:
     /fd { dup  theta sin mul  exch theta cos mul  turtle-pen } def
     pd  0 seth
 
+Observations
+------------
+
+I was hoping that this version would take something like 9 minutes to
+cut, because of the smaller size and cost between AR$200 and AR$300,
+but instead it took 13'52" and cost AR$320.  Also, I was hoping that
+it would be less breakable in two ways: the outside divots on the
+slots would reduce stress concentrations, and the smaller size would
+reduce the leverage available to break it with.
+
+Instead, it was more breakable: both the divots and the smaller scale
+reduced the distance between slots, with the consequence that it was
+far more fragile.  The divots also probably accounted for the
+longer-than-expected cutting time.
+
+Still, it has enough elasticity that I was able to throw an assembly
+against a wall repeatedly with no visible damage.
+
+I was also hoping to have time to add slots to the square scraps in
+between the octagons, but my attempts to do that failed, in part
+because of the big divots, and in part because I was at a loud party
+that made it hard to concentrate.  The whole thing looks like a jigsaw
+puzzle, which is cool, and the scraps do hold together a little bit
+better with their knobs, but not really well enough.
+
+I gave some of the previous (100-mm) Heckballs to a baby, who enjoyed
+them and was not able to put them together or to break them.  If you
+broke one of the tabs off, it would be 34 mm wide, probably too wide
+to choke on.  This version might be less suitable for that, because it
+has lots of small pieces that could break off pretty easily.
+
+The smaller amount of slop (30 μm) was intended to eliminate the
+problem of assemblies simply falling apart under the weight of the
+octagons.  It did greatly reduce it, but it didn’t eliminate it.
+Also, it made them noticeably trickier to assemble, since I still
+haven’t managed to add corner chamfers.
+
+The 1-mm tabs to hold the sheet together during cutting were
+annoyingly difficult to break apart.
+
 <link rel="stylesheet" href="http://canonical.org/~kragen/style.css" />
 
 <style>
