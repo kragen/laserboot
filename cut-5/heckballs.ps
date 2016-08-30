@@ -1,0 +1,166 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 2297 1276
+%%Pages: 1
+%%BeginProlog
+% Trying to do some really simple parametric design in PostScript.
+% This file is a construction set I designed based on some work by
+% Matt Heck.  I call it Heckballs.
+/inch 72 def
+/mm_size inch 25.4 div def
+/bdef { bind def } bind def
+/inches { inch mul } bdef
+/mm { mm_size mul } bdef
+% These colors come from the Max58 service bureau.
+/cutting { 1 0 0 setrgbcolor } bdef
+/marking { 0 0 1 setrgbcolor } bdef
+/engraving { 0 0 0 setrgbcolor } bdef
+
+/max58-dimensions { 810 mm 450 mm } bdef
+
+/thickness 3 mm def
+% Allow this much clearance to allow tabs to pass through slots
+% without colliding.  At exactly 3.0 mm, the slots grip tightly (at
+% least during a previous test), while at 3.15 mm, there is
+% significant slack in the joints, and assemblies sometimes fall apart
+% under their own weight.  3.03 mm is about right, but sometimes still
+% falls apart and sometimes grips too tightly.
+/slop 0.03 mm def
+
+% Turtle graphics.
+
+/seth { /theta exch def } def
+/rt { theta add seth } def
+/lt { neg rt } def
+/pd { /turtle-pen {rlineto} def } def
+/pu { /turtle-pen {rmoveto} def } def
+/here { [ /turtle-pen load  theta  currentpoint ] } def
+/return { aload pop  moveto  seth  /turtle-pen exch def } def
+/fd { dup  theta sin mul  exch theta cos mul  turtle-pen } def
+pd  0 seth
+
+%%EndProlog
+%%Page: 1 1
+save
+
+.001 setlinewidth
+
+cutting
+
+0 0 moveto
+max58-dimensions  exch 0 lineto
+0 0 moveto 0 lineto
+stroke
+
+% This version doesn't yet have:
+% - beams
+% - clips
+% - labels
+% - design rule checks
+% But it's what I've been able to manage so far.
+/sq2 2 sqrt def  /isq2 1 sq2 div def
+/octsize 100 mm def
+/octcenter octsize 2 div def
+% The bounding square of the octagon is
+% 1/sqrt(2) sidelength + sidelength + 1/sqrt(2) sidelength.
+% This means that sidelength is octsize / (1 + sqrt(2)).
+/octratio 1 sq2 add def
+/sidelength octsize octratio div def
+/cornerpos isq2 sidelength mul def
+/slitwidth thickness slop add def
+/freesidelength sidelength slitwidth sub 2 div def
+/halfslit slitwidth 2 div def
+/depth octcenter 2 div thickness 2 div sub def
+/centerspacing octsize 2 depth mul sub def
+
+% Tabs to keep the octagons from separating.
+/tabsize 0.8 mm def
+/divotwidth thickness def
+/divotside { 
+    here
+    45 rt
+    divotwidth octratio div
+        dup fd 45 lt
+        dup fd 45 lt
+        fd
+    return
+} bdef
+
+/nslit {
+    /slitdepth exch def
+    slitdepth divotwidth sub fd
+    divotside
+    pu
+    divotwidth fd
+    pd
+    90 lt slitwidth fd  90 lt
+    divotside
+    pu
+    divotwidth fd
+    pd
+    slitdepth divotwidth sub fd
+} bdef
+
+/chamferwidth thickness 0.75 mul def
+% This does a chamfered corner, but you have to stop drawing early by
+% chamferwidth.
+/chamfer { 45 rt chamferwidth sq2 mul fd 45 rt } def
+
+/chamferside { freesidelength chamferwidth sub fd } bdef
+/chamferslit {
+    chamfer
+    depth chamferwidth sub nslit
+    chamfer
+} bdef
+% Okay, this is starting to get out of hand... but oooone more
+/chamfertabside {
+    pu tabsize fd
+    pd freesidelength tabsize sub chamferwidth sub fd
+} bdef
+/oct {
+    % Start with the turtle in the lower left corner, pointing up.
+    here
+        90 rt  pu  cornerpos fd  135 lt
+        pd chamferside chamferslit chamferside
+        45 rt  pu chamferside pd  chamferslit  pu chamferside %left
+        45 rt  pd chamfertabside chamferslit chamferside
+        45 rt  pu tabsize fd  pd sidelength tabsize sub fd % top
+        45 rt  pd chamferside chamferslit chamferside
+        45 rt  pd chamferside chamferslit chamfertabside % right
+        45 rt  pd chamfertabside chamferslit chamferside
+        45 rt  pu chamferside
+        pd chamfer
+        octcenter chamferwidth sub  nslit
+        chamfer
+    return
+} bdef
+
+/beamlength centerspacing 4 mul 2 depth mul add def
+/beamwidth octsize .3 mul def
+/beamsidelength beamwidth slitwidth sub 2 div chamferwidth sub def
+/beamside { beamsidelength fd } bdef
+/beam {
+    pu beamlength fd 90 rt pd beamside pd chamferslit pd beamside 90 rt
+    pu tabsize fd pd beamlength tabsize 2 mul sub fd pu tabsize fd
+    90 rt pu beamside pd chamferslit pu beamside 90 rt
+} bdef
+
+/row { 
+    oct
+    3 { octsize 0 rmoveto oct } repeat
+} bdef
+
+8 beamwidth mul 0 moveto
+currentpoint row moveto
+3 { 0 octsize rmoveto  currentpoint  row  moveto } repeat
+
+0 0 moveto  0 seth
+8 { beam beamwidth 0 rmoveto } repeat
+
+8 beamwidth mul beamlength moveto
+8 beamwidth mul max58-dimensions exch pop lineto
+
+stroke
+
+restore
+showpage
+%%EOF
