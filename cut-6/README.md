@@ -91,3 +91,13 @@ use AR$0.40 per second, I get this instead:
 
 > Totals: 739 vertices; 8129.49 mm drawn.
 > Estimated cutting time 388.069 seconds, estimated Max58 cost AR$155.227.
+
+The actual budget they sent me was $190, which was off from my
+estimate by a bit over 15%.
+
+I made some changes and got this:
+
+> Totals: 2196 vertices; 11328.3 mm drawn.
+> Estimated cutting time 608.771 seconds, estimated Max58 cost AR$243.508.
+
+Sending that off to see what they say...

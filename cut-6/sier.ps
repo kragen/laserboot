@@ -90,14 +90,16 @@ cutting
 2 {max58-dimensions fd 90 rt fd 90 rt} repeat
 
 3 mm 3 mm moveto
-6.5 mm fd
-6.5 mm 6 sier
-6.5 mm fd
+/sidesize 3.8 mm def
+90 rt
+sidesize fd
+sidesize 7 sier
+sidesize fd
 % Order-0 sier has width of the unit.
 % Order-1 sier has width of twice the unit.
 % Order-2 sier has width of 4x the unit. ...
 % Order-6 sier has width 64x the unit.
-2 { 120 rt  66 6.5 mm mul fd } repeat
+120 lt  129 sidesize mul fd
 stroke
 
 measurement-report
