@@ -90,7 +90,7 @@ confidently say that the cutting cost there was due primarily to the 8
 corners, so we can estimate that each corner costs about 400 ms.
 
 All of this is happening on Max58’s fabulous Universal Laser Systems
-cutter (whose model number I haven’t been able to see), driven by
+cutter (whose model number I haven’t noticed), driven by
 VLS6.60 with a 60-watt CO₂ laser.  This means potentially about 24
 joules per corner or about 2.7 joules per millimeter.
 
@@ -175,4 +175,4 @@ Next plans
 
 <style>
 img { float: right; margin: 0.5em }
-</style> 
+</style>
