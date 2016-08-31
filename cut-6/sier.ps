@@ -1,0 +1,107 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 2297 1276
+%%Pages: 1
+%%BeginProlog
+% Trying to do some really simple parametric design in PostScript.
+% For a break from Heckballs I thought I would try some kind of
+% fractal.
+/inch 72 def
+/mm_size inch 25.4 div def
+/bdef { bind def } bind def
+/inches { inch mul } bdef
+/mm { mm_size mul } bdef
+% These colors come from the Max58 service bureau.
+/cutting { 1 0 0 setrgbcolor } bdef
+/marking { 0 0 1 setrgbcolor } bdef
+/engraving { 0 0 0 setrgbcolor } bdef
+
+/max58-dimensions { 810 mm 450 mm } bdef
+
+% Measurement by redefining the path-construction operators (the ones
+% I'm using, anyway.)
+
+/orig-rlineto /rlineto load def
+/orig-rmoveto /rmoveto load def
+/orig-lineto /lineto load def
+/orig-moveto /moveto load def
+% Calculate distance from x1 y1 to x2 y2
+/dist { 3 2 roll sub  3 1 roll sub  dup mul exch  dup mul add  sqrt } bdef
+/total-points 0 def             % Total number of points drawn
+/total-distance 0 def           % Total distance drawn
+/increment-points { /total-points total-points 1 add def } bdef
+/mark-point { currentpoint /lasty exch def /lastx exch def } bdef
+/measure {
+    /total-distance  lastx lasty currentpoint dist  total-distance add  def
+} bdef
+/moveto { orig-moveto increment-points } bdef
+/rmoveto { orig-rmoveto increment-points } bdef
+/lineto { mark-point  orig-lineto  measure increment-points } bdef
+/rlineto { mark-point orig-rlineto measure increment-points } bdef
+/measurement-report {
+    (Totals: ) print
+    total-points (      ) cvs print
+    ( vertices; ) print
+    total-distance 1 mm div (       ) cvs print
+    ( mm drawn.\nEstimated cutting time ) print
+    total-points .06 mul total-distance 24 mm div add 5 add dup
+    (       ) cvs print
+    ( seconds, estimated Max58 cost AR$) print
+    0.40 mul (       ) cvs print
+    (.\n) print
+} bdef
+
+
+% Turtle graphics.
+
+/seth { /theta exch def } def
+/rt { theta add seth } def
+/lt { neg rt } def
+/pd { /turtle-pen {rlineto} def } def
+/pu { /turtle-pen {rmoveto} def } def
+/here { [ /turtle-pen load  theta  currentpoint ] } def
+/return { aload pop  moveto  seth  /turtle-pen exch def } def
+/fd { dup  theta sin mul  exch theta cos mul  turtle-pen } def
+pd  0 seth
+
+% Sierpinski arrowhead fractal L-system.
+
+/+ {60 rt} bdef  /- {60 lt} def
+/! {/rt load /lt load /rt exch def /lt exch def} def % flip, as in Fractint
+/sier {                         % params: sidelength recursiondepth
+    2 copy 0 eq {
+        fd pop pop              % base case
+    } {
+        pop 1 sub
+        2 copy ! sier ! -
+        2 copy   sier   -
+               ! sier !
+    } ifelse
+} def                           % don't bdef, it'll break "!"
+
+%%EndProlog
+%%Page: 1 1
+save
+
+.001 setlinewidth
+
+cutting
+
+0 0 moveto
+2 {max58-dimensions fd 90 rt fd 90 rt} repeat
+
+3 mm 3 mm moveto
+6.5 mm fd
+6.5 mm 6 sier
+6.5 mm fd
+% Order-0 sier has width of the unit.
+% Order-1 sier has width of twice the unit.
+% Order-2 sier has width of 4x the unit. ...
+% Order-6 sier has width 64x the unit.
+2 { 120 rt  66 6.5 mm mul fd } repeat
+stroke
+
+measurement-report
+
+restore
+showpage
+%%EOF
