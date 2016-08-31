@@ -51,6 +51,7 @@ Practical (?) problems to solve with this shit:
 - a bicycle
 - gears
 - a spice rack
+- a piano keyboard
 
 I need to make a plan to start making stuff regularly.  I think I will
 make a queue with some finished fallback things in it and fabricate a
@@ -76,3 +77,6 @@ cutter to 400 days instead of 533 (which was a lot less than three
 years anyway.
 
 At US$20/day, the budget is US$610 per month.
+
+Geez, that's more than I’m paying in rent.  Maybe I should shoot
+lower!
