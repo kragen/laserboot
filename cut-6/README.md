@@ -95,9 +95,15 @@ use AR$0.40 per second, I get this instead:
 The actual budget they sent me was $190, which was off from my
 estimate by a bit over 15%.
 
-I made some changes and got this:
+I made some changes, going from 6 iterations of the L-system to 7,
+diminishing the side size, and changing the angle and side, and got
+this (using 60 ms per vertex plus a second per 24 mm of cut):
 
 > Totals: 2196 vertices; 11328.3 mm drawn.
 > Estimated cutting time 608.771 seconds, estimated Max58 cost AR$243.508.
 
-Sending that off to see what they say...
+Sending that off to see what they say... but I think I sent it too
+late to get a reply today, since I sent it at 18:33 and they close at
+19:00 (according to the hours on their door; on the web site they say
+18:00.)  They sent me a budget of $250!  So my model is in good shape!
+The response took 14 hours and 57 minutes.
