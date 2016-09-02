@@ -88,9 +88,9 @@ of respectively 1/√3 and 1/√2, so we have 2/√6 = 2√6/6 = √6/3 = √⅔
 This suggests that θ ≈ 35.26°, which is an unexpected result, but
 I think correct.
 
-After fiddling around with this for a while, I got some tapers on the
-beams, but they’re not quite right yet; I have some kind of math error
-that is giving me the wrong beam width.
+It took me a while to get the math for this right, and I’m still not
+totally confident that the taper is okay.  And I had to cut the
+chamfering to zero to get it to not overlap.
 
 <link rel="stylesheet" href="http://canonical.org/~kragen/style.css" />
 

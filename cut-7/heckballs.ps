@@ -136,7 +136,7 @@ stroke
     slitdepth fd
 } bdef
 
-/chamferwidth thickness 0.75 mul def
+/chamferwidth thickness 0 mul def
 % This does a chamfered corner, but you have to stop drawing early by
 % chamferwidth.
 /chamfer { 45 rt chamferwidth sq2 mul fd 45 rt } def
@@ -176,39 +176,36 @@ stroke
 
 /beamlength centerspacing 4 mul 2 depth mul add def
 /beamwidth octsize .3 mul def
-%/beamsidelength beamwidth slitwidth sub 2 div chamferwidth sub def
 /beamtaperangle 36.25 def
-% The distance from the beginning of the taper to the center of the ball.
 /tan { dup cos exch sin div } bdef
-/beamtapertotallength beamwidth 2 div  beamtaperangle tan div def
+% The distance from the beginning of the taper to the center of the ball.
+/beamtapertotallength beamwidth 2 div  beamtaperangle tan mul def
 % The part of that distance that's part of the beam.
-/beamtaperinternallength beamtapertotallength thickness 2 mul sub def
+/beamtaperinternallength beamtapertotallength thickness sub def
 % The diagonal distance.
-/beamtaperdiagonal beamtaperinternallength beamtaperangle sin div def
+/beamtaperdiagonal beamtaperinternallength beamtaperangle cos div def
 % The other side of the right triangle of that taper.
-/beamtaperdepth beamtaperdiagonal beamtaperangle cos mul def
-/beamtapertotallength dumpmm /beamtaperinternallength dumpmm /beamtaperdiagonal dumpmm /beamtaperdepth dumpmm /beamwidth dumpmm
+/beamtaperdepth beamtaperdiagonal beamtaperangle sin mul def
 /straightbeamsidelength beamlength 2 beamtaperinternallength mul sub def
 /beamendlength beamwidth slitwidth sub 2 div chamferwidth sub beamtaperdepth sub def
 /beamside {
     90 beamtaperangle sub rt
-    beamtaperdiagonal fd
+    beamtaperdiagonal tabsize sub fd
+    pu tabsize fd pd
     beamtaperangle rt
-    straightbeamsidelength fd
+    pu straightbeamsidelength fd pd
     beamtaperangle rt
     beamtaperdiagonal fd
     90 beamtaperangle sub rt
 } bdef
 /beam {
+    here pd beamlength fd return
     here
         pu 90 rt  beamtaperdepth fd  pd  180 lt
         beamside
         beamendlength fd  chamferslit  beamendlength fd
         beamside
         beamendlength fd  chamferslit  beamendlength fd
-        %beamlength fd 90 rt pd beamside pd chamferslit pd beamside 90 rt
-        %pu tabsize fd pd beamlength tabsize 2 mul sub fd pu tabsize fd
-        %90 rt pd beamside pd chamferslit pd beamside 90 rt
     return
 } bdef
 /beamcount 13 def
@@ -227,11 +224,10 @@ currentpoint row moveto
 3 { 0 octsize rmoveto  currentpoint  row  moveto } repeat
 
 0 0 moveto  0 seth
-pd beam beamwidth 0 rmoveto
-beamcount 1 sub { pu beam beamwidth 0 rmoveto } repeat
+beam beamwidth 0 rmoveto
+beamcount 1 sub { beam beamwidth 0 rmoveto } repeat
 
-beamcount beamwidth mul beamlength moveto
-beamcount beamwidth mul max58-dimensions exch pop 3 mm sub lineto
+beamcount beamwidth mul max58-dimensions exch pop 3 mm 2 mul sub lineto
 
 stroke
 
