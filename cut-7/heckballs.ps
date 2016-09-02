@@ -15,6 +15,15 @@
 /marking { 0 0 1 setrgbcolor } bdef
 /engraving { 0 0 0 setrgbcolor } bdef
 
+% Debugger:
+/dump { dup load exch (                        ) cvs print ( = ) print === } bdef
+/dumpmm {
+    dup load exch (                         ) cvs print
+    ( = ) print
+    1 mm div (       ) cvs print
+    ( mm\n) print
+} bdef
+
 /max58-dimensions { 810 mm 450 mm } bdef
 
 /thickness 3 mm def
@@ -167,12 +176,40 @@ stroke
 
 /beamlength centerspacing 4 mul 2 depth mul add def
 /beamwidth octsize .3 mul def
-/beamsidelength beamwidth slitwidth sub 2 div chamferwidth sub def
-/beamside { beamsidelength fd } bdef
+%/beamsidelength beamwidth slitwidth sub 2 div chamferwidth sub def
+/beamtaperangle 36.25 def
+% The distance from the beginning of the taper to the center of the ball.
+/tan { dup cos exch sin div } bdef
+/beamtapertotallength beamwidth 2 div  beamtaperangle tan div def
+% The part of that distance that's part of the beam.
+/beamtaperinternallength beamtapertotallength thickness 2 mul sub def
+% The diagonal distance.
+/beamtaperdiagonal beamtaperinternallength beamtaperangle sin div def
+% The other side of the right triangle of that taper.
+/beamtaperdepth beamtaperdiagonal beamtaperangle cos mul def
+/beamtapertotallength dumpmm /beamtaperinternallength dumpmm /beamtaperdiagonal dumpmm /beamtaperdepth dumpmm /beamwidth dumpmm
+/straightbeamsidelength beamlength 2 beamtaperinternallength mul sub def
+/beamendlength beamwidth slitwidth sub 2 div chamferwidth sub beamtaperdepth sub def
+/beamside {
+    90 beamtaperangle sub rt
+    beamtaperdiagonal fd
+    beamtaperangle rt
+    straightbeamsidelength fd
+    beamtaperangle rt
+    beamtaperdiagonal fd
+    90 beamtaperangle sub rt
+} bdef
 /beam {
-    beamlength fd 90 rt pd beamside pd chamferslit pd beamside 90 rt
-    pu tabsize fd pd beamlength tabsize 2 mul sub fd pu tabsize fd
-    90 rt pd beamside pd chamferslit pd beamside 90 rt
+    here
+        pu 90 rt  beamtaperdepth fd  pd  180 lt
+        beamside
+        beamendlength fd  chamferslit  beamendlength fd
+        beamside
+        beamendlength fd  chamferslit  beamendlength fd
+        %beamlength fd 90 rt pd beamside pd chamferslit pd beamside 90 rt
+        %pu tabsize fd pd beamlength tabsize 2 mul sub fd pu tabsize fd
+        %90 rt pd beamside pd chamferslit pd beamside 90 rt
+    return
 } bdef
 /beamcount 13 def
 
@@ -205,7 +242,7 @@ measurement-report
 
 engraving
 
-6 mm 100 mm moveto 0 seth
+6 mm 100 mm moveto 0 seth pd
 
 /jecval {
     here
