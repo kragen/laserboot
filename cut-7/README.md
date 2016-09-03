@@ -19,39 +19,33 @@ it creates a sharper corner, the sharpest possible corner in fact.
 I’m trying a variety of different overcut depths on the octagons on
 this cut to see what works best.
 
-This version also adds a laser-engraved logo.
-
-Still to do on it:
-
-This version also tapers the ends of the beams so that they won’t
-collide if you stick them all over a ball and moves away from the edge
+This version also adds a laser-engraved logo,
+tapers the ends of the beams so that they won’t
+collide if you stick them all over a ball,
+and moves the parts away from the edge
 of the stock (since they asked me to do that).
 
 Here are the things I still want to do but haven’t done yet:
 
 1. Slit the scrap squares so they also work as connectable pieces.
 
-2. The octagons and divots should be hexadecagons so their corners
+2. The octagons (and divots, if any) should be hexadecagons so their corners
    aren’t as sharp, both to reduce the stress concentration factor and
    to make them easier on your hands.
 
-3. I’d like to add some kind of engraved “JECVALZ” logo so that
-   curious people can google it.  I don’t know how much extra laser
-   time that will add.
-
-4. The engineer at Max58 suggested that maybe I should let the divot
+3. The engineer at Max58 suggested that maybe I should let the divot
    slope go down into the bottom of the slits instead of letting the
    slit bottom be perfectly flat, thus reducing the width of the
    divot.  Presumably after some crushing this would lead to a kind of
    Pringle shape at the bottom of the slit.
 
-5. Sprung snap joints!  That will escape the conflict between being
+4. Sprung snap joints!  That will escape the conflict between being
    easy to assemble and not falling apart a lot better than just
    fine-tuning slit widths.  Even Tinkertoys have sprung joints,
    although without snaps; that’s what the slits in the ends of
    Tinkertoy beams are for.
 
-6. Take more photos.
+5. Take more photos.
 
 Shitty code
 -----------
@@ -91,6 +85,9 @@ I think correct.
 It took me a while to get the math for this right, and I’m still not
 totally confident that the taper is okay.  And I had to cut the
 chamfering to zero to get it to not overlap.
+
+I shortened the slit part of the beam in order to be able to chamfer
+properly.
 
 <link rel="stylesheet" href="http://canonical.org/~kragen/style.css" />
 

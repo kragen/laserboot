@@ -136,7 +136,7 @@ stroke
     slitdepth fd
 } bdef
 
-/chamferwidth thickness 0 mul def
+/chamferwidth thickness .75 mul def
 % This does a chamfered corner, but you have to stop drawing early by
 % chamferwidth.
 /chamfer { 45 rt chamferwidth sq2 mul fd 45 rt } def
@@ -178,15 +178,21 @@ stroke
 /beamwidth octsize .3 mul def
 /beamtaperangle 36.25 def
 /tan { dup cos exch sin div } bdef
+% Doing the full slot depth on the beams with the right taper doesn't
+% leave space to chamfer the slit.  So this will be an extra
+% shortening of the path, a sort of Kwisatz Haderach, at each end of
+% the beam to enable the beams to be shorter than their theoretical
+% length.
+/beamtruncation 2 thickness mul def
 % The distance from the beginning of the taper to the center of the ball.
 /beamtapertotallength beamwidth 2 div  beamtaperangle tan mul def
 % The part of that distance that's part of the beam.
-/beamtaperinternallength beamtapertotallength thickness sub def
+/beamtaperinternallength beamtapertotallength thickness sub beamtruncation sub def
 % The diagonal distance.
 /beamtaperdiagonal beamtaperinternallength beamtaperangle cos div def
 % The other side of the right triangle of that taper.
 /beamtaperdepth beamtaperdiagonal beamtaperangle sin mul def
-/straightbeamsidelength beamlength 2 beamtaperinternallength mul sub def
+/straightbeamsidelength beamlength 2 beamtaperinternallength mul sub 2 beamtruncation mul sub def
 /beamendlength beamwidth slitwidth sub 2 div chamferwidth sub beamtaperdepth sub def
 /beamside {
     90 beamtaperangle sub rt
@@ -201,11 +207,21 @@ stroke
 /beam {
     here pd beamlength fd return
     here
+        pu beamtruncation fd
         pu 90 rt  beamtaperdepth fd  pd  180 lt
         beamside
-        beamendlength fd  chamferslit  beamendlength fd
+        beamendlength fd
+        chamfer
+        depth beamtruncation sub  chamferwidth sub  nslit
+        chamfer
+        beamendlength fd
+
         beamside
-        beamendlength fd  chamferslit  beamendlength fd
+        beamendlength fd
+        chamfer
+        depth beamtruncation sub  chamferwidth sub  nslit
+        chamfer
+        beamendlength fd
     return
 } bdef
 /beamcount 13 def
