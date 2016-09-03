@@ -3,9 +3,12 @@ Laser boot, cut 7: Heckballs with overcuts and logos
 
 This is a refinement of [Cut 5 Heckballs][2]; Heckballs is an edge-lap
 construction-set design I developed based on some ideas Matt Heck
-showed me in 2005 or 2006.
+showed me in 2005 or 2006.  [PDF output to send to laser cutter][3],
+[parametric model in PostScript][4].
 
 [2]: ../cut-5
+[3]: ./heckballs.pdf
+[4]: ./heckballs.ps
 
 Cut 5 was super awesome to play with, but it still tears the octagons
 if you twist the joints, for example by squishing a ball flat.  So it
