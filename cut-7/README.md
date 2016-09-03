@@ -92,6 +92,12 @@ chamfering to zero to get it to not overlap.
 I shortened the slit part of the beam in order to be able to chamfer
 properly.
 
+Costs
+-----
+
+My cost estimate was 897" and AR$359 to AR$397, but instead the quote
+they sent was $540.  Also,
+
 <link rel="stylesheet" href="http://canonical.org/~kragen/style.css" />
 
 <style>
