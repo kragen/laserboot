@@ -105,5 +105,8 @@ this (using 60 ms per vertex plus a second per 24 mm of cut):
 Sending that off to see what they say... but I think I sent it too
 late to get a reply today, since I sent it at 18:33 and they close at
 19:00 (according to the hours on their door; on the web site they say
-18:00.)  They sent me a budget of $250!  So my model is in good shape!
-The response took 14 hours and 57 minutes.
+18:00.)  They sent me a budget of $250, only 3% higher!  So my model
+is in good shape!  The response took 14 hours and 57 minutes.  Once I
+asked them to cut it, there was a delay of 90' waiting for other
+people’s jobs to get cut; the actual cutting took 9’33" = 573", about
+6% less than the cutting time estimate.
