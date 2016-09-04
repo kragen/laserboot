@@ -110,3 +110,26 @@ is in good shape!  The response took 14 hours and 57 minutes.  Once I
 asked them to cut it, there was a delay of 90' waiting for other
 people’s jobs to get cut; the actual cutting took 9’33" = 573", about
 6% less than the cutting time estimate.
+
+Observations
+------------
+
+The cut shape is fairly delicate, because it has giant chunks of MDF
+(over a hundred grams) hanging off of single 3.8-millimeter-wide
+connections.  It can support its own weight, but only barely.  I did
+break the negative part by careless handling — setting it down on a
+carpeted floor a bit too hard broke off one of the triangles on the
+inside.
+
+A few of the corners didn’t come out sharp, but rather rounded, and
+their hexagons were somewhat distorted in shape.  I suspect that this
+was a result of the MDF drooping as it was cut, since it wasn’t
+supported by any tabs at the time, only through its own elasticity
+from a long way away under its own weight.  The radius of some of the
+corners was as much as two or three millimeters.  This may be due to
+fire damage in the supporting bed in the laser cutter causing its
+surface to be uneven.
+
+The bottom of the triangle is at places only 3.8 mm · sin(60°) =
+3.29 mm thick.  This gives it enough flexibility to droop visibly
+while hanging on the wall.

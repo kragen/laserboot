@@ -62,10 +62,11 @@ assembly interference avoidance, I’d really benefit from a more
 capable CAD representation with constraint solvers and 3-D
 visualization and whatnot.
 
-At some point I feel like I'm going to have to bite the bullet and
+At some point I feel like I’m going to have to bite the bullet and
 either switch to a real parametric CAD system or write one.
 ImplicitCAD, BRL-CAD, FreeCAD, and SolveSpace have been suggested as
-options.
+options.  I’m pretty sure I’d be unhappy with ImplicitCAD because, by
+design, it doesn’t have a GUI.
 
 Beam tapering
 -------------
@@ -95,8 +96,78 @@ properly.
 Costs
 -----
 
-My cost estimate was 897" and AR$359 to AR$397, but instead the quote
-they sent was $540.  Also,
+My original cost estimate was 897" and AR$359 (if engraving was free)
+to AR$397 (if it cost the same as cutting), but instead the quote they
+sent was $540.  Also, they suggested that since the laser-cutter
+rasters horizontally to do surface engraving, maybe I should rotate
+the logos (and the pieces, if necessary) to be horizontal on the sheet
+in order to reduce the engraving time.  On changing the engraving to
+marking, the cost went down to $420, suggesting that the cost of
+marking is about 1.6 times the cost of cutting, although I may be
+exaggerating the precision of that AR$359 number.
+
+It took 2'25" to do the marking, which was all first.  I unfortunately
+didn’t properly note the time to do the entire cutting and marking
+operation, but I think it was 17 minutes and change.  The engraving
+involved 967 vertices and 893.2 mm of cutting (!!).  If we estimate
+that the vertices take the same 60 ms each, they account for 58.02
+seconds, leaving about 87 seconds, for about 10.3 mm/s of cutting
+speed.
+
+This 2'25" would account for AR$58 at the estimated cost of AR$0.40
+per second, leaving $362, almost exactly my $359 estimate.
+
+While not exact, this should enable me to extend the cost model in a
+reasonably accurate way to future cuts:
+
+- 10.3 mm/s for marking;
+- 24 mm/s for cutting;
+- 60 ms per vertex;
+- AR$0.40/s, or US$0.026/s.
+
+Observations
+------------
+
+The overcut thing doesn’t really work at any of the lengths tried,
+0.5 mm to 9.5 mm.  Twisting connected octagons until they are flat
+still tears the MDF; the square “tongue” at the bottom of the slit
+gets *twisted* by the other slit, which I didn’t anticipate, but
+should have.
+
+This is a disappointment, because it was a lot cheaper than any of the
+other things I’ve tried to reduce the cracking.
+
+The beam taper is almost exactly right, although since I didn’t
+account for the beam thickness, they press against each other a bit,
+which would be fine except that it has a tendency to lever balls
+apart.  The shortened beams interact in a very unfortunate way with
+overcuts: bending stresses in beam-beam joints apply a large moment to
+the “tongue”, breaking it off.
+
+I brought out Heckballs at the birthday party of my roommate’s
+8-year-old son.  Very rapidly I had eight or ten parents playing with
+them.  Later, lots of six-to-ten-year-olds came inside and started
+playing with them.  Unfortunately, one of the adults came up with the
+stupid idea of setting up a tower-height competition among the kids;
+this generated competition for resources, exclusion of the less
+physically aggressive kids, and unimaginative architecture.
+
+This spectacle of a height competition with structures unavoidably
+consisting almost entirely of beams joined end-to-end, a metaphorical
+penis size competition, often listing over at one or another awkward
+angle, made me realize that I’d inadvertently designed the beam taper
+as an almost perfect cartoon penis head.
+
+In addition to the designed-in cube and octahedron geometrical
+possibilities, I found that it’s possible to join twelve octagons in a
+ring with sixfold rotational symmetry.  Each octagon is at a 135°
+angle to an octagon two prior to it; such alternating octagons around
+the ring are on a six-sided pyramid.  I wasn’t expecting to be able to
+get sixfold rotational symmetry out of 45° and 90° angles.
+
+The variable slit width due to laser-cutting imprecision continues to
+make fit tightness inconsistent and unpredictable, since I still
+haven’t done snap joints.
 
 <link rel="stylesheet" href="http://canonical.org/~kragen/style.css" />
 
