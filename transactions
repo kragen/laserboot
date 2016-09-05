@@ -6,7 +6,7 @@ Area: 0.32 m²
 Material: MDF
 Thickness: 3 mm
 Cut-time: 17'26"
-Cut-length: 21.9 m
+Cut-length: 23.5 m
 PDF: cut-3/heckballs.pdf
 
 Shop: Max58
@@ -17,7 +17,7 @@ Area: 0.09 m²
 Material: MDF
 Thickness: 3 mm
 Cut-time: 13'52"
-Cut-length: (to calculate)
+Cut-length: 14.0 m
 PDF: cut-4/heckballs.pdf
 
 Shop: Max58
@@ -28,5 +28,28 @@ Area: (to calculate)
 Material: MDF
 Thickness: 3 mm
 Cut-time: 13'47"
-Cut-length: (to calculate)
+Cut-length: 14.7 m
 PDF: cut-5/heckballs.pdf
+
+Shop: Max58
+Date: 2016-09-02
+Response-delay: 14 hours 57 minutes
+Material: MDF
+Thickness: 3 mm
+Cut-length: 11.3 m
+Area: (to calculate)
+Cut-time: 9'33"
+Cost: AR$250
+PDF: cut-6/sier.pdf
+
+Shop: Max58
+Date: 2016-09-03
+Response-delay: 26'
+Material: MDF
+Thickness: 3 mm
+Cut-length: 18.8 m
+Cut-time: 17' or so, I didn't register it properly
+Area: 0.36 m²
+Cost: AR$420
+PDF: cut-7/heckballs.pdf
+

@@ -96,6 +96,10 @@ properly.
 Costs
 -----
 
+Max58 responded to my Saturday-morning email with a quote in 26
+minutes, but didn’t have availability to do the cut until a few hours
+later.
+
 My original cost estimate was 897" and AR$359 (if engraving was free)
 to AR$397 (if it cost the same as cutting), but instead the quote they
 sent was $540.  Also, they suggested that since the laser-cutter

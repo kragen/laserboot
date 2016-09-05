@@ -108,7 +108,7 @@ late to get a reply today, since I sent it at 18:33 and they close at
 18:00.)  They sent me a budget of $250, only 3% higher!  So my model
 is in good shape!  The response took 14 hours and 57 minutes.  Once I
 asked them to cut it, there was a delay of 90' waiting for other
-people’s jobs to get cut; the actual cutting took 9’33" = 573", about
+people’s jobs to get cut; the actual cutting took 9'33" = 573", about
 6% less than the cutting time estimate.
 
 Observations
@@ -128,7 +128,8 @@ supported by any tabs at the time, only through its own elasticity
 from a long way away under its own weight.  The radius of some of the
 corners was as much as two or three millimeters.  This may be due to
 fire damage in the supporting bed in the laser cutter causing its
-surface to be uneven.
+surface to be uneven.  However, occasional tabs (short skips in the
+line) would solve the problem.
 
 The bottom of the triangle is at places only 3.8 mm · sin(60°) =
 3.29 mm thick.  This gives it enough flexibility to droop visibly

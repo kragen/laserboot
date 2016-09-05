@@ -65,6 +65,7 @@ Practical (?) problems to solve with this shit:
 - a flexural "snake" with limited bend to prevent overstress
 - snap joints
 - a mechanical logic lookup table
+- Tensegrity structures
 
 I need to make a plan to start making stuff regularly.  I think I will
 make a queue with some finished fallback things in it and fabricate a
@@ -87,9 +88,10 @@ US$15 per day with daily cuts, even though today's can be a twofer
 since nothing is open tomorrow.  Maybe I should shoot for US$20 per
 day instead, bringing down the time-to-wishing-I'd-bought-a-laser-
 cutter to 400 days instead of 533 (which was a lot less than three
-years anyway.
+years anyway.)
 
 At US$20/day, the budget is US$610 per month.
 
-Geez, that's more than I’m paying in rent.  Maybe I should shoot
-lower!
+Geez, that’s more than I’m paying in rent.  Maybe I should shoot
+lower!  Also I am spending way more time designing things than I am on
+cutting them.
