@@ -38,6 +38,9 @@ cost-model optimization I was thinking of doing.
 
 Other fairly immediate things to try fabricating include:
 
+- A small-parts-storage box which I’ve already started designing (last
+  Saturday night, in fact).
+
 - A ruler, being the simplest of all measuring instruments.
 
 - A flexural weighing scale, using the standard linear-motion flexure
@@ -67,7 +70,8 @@ Other fairly immediate things to try fabricating include:
 - A Jecval toybox to contain the so-far-fabricated Heckballs.
 
 - Long finger-joint square tubular beams, to test the extent to which
-  that approach can strengthen and stiffen MDF.
+  that approach can strengthen and stiffen MDF.  Being able to build
+  things from hollow tubes could enable much lower cutting costs.
 
 - Twisted tubular beams, too.
 
@@ -88,7 +92,7 @@ Other fairly immediate things to try fabricating include:
 - Some experimentation with 1.5-mm MDF to see if I can get costs down
   further.
 
-This list of 12 “immediate” things is kind of overwhelming.  Even if I
+This list of 14 “immediate” things is kind of overwhelming.  Even if I
 were to do one per day it would take me two weeks to get through all
 of them.  I’d really have to do several per day to get through them
 “immediately”, and in practice it’s going to take me several
@@ -100,13 +104,56 @@ concerns putting together enclosures.
 
 The measuring instruments in particular should make it possible to
 build an apparatus to plot the stress-strain behavior of different
-material samples.
+material samples.  This, in turn, should make it possible to measure
+material properties to predict the performance of different designs.
 
 On top of all of this, I also want to take a day next week to travel
 to a metals fabrication company I’ve been referred to out in the
 province next week to get a steel version of Heckballs fabricated,
-which I think will cost me under AR$1000.
+which I think will cost me under AR$1000.  Also, there's another
+laser-cutting place near my house, and I want to see if they can match
+Max58’s level of awesomeness and price.
 
 I think I will drop my fabrication budget to US$10 per day, since so
 far I have been unable to even keep up with the US$20 per day budget,
-which is also a lot of money.
+even when I didn't have a week idle,
+and it was also a lot of money.
+
+Pricing
+-------
+
+I did a little calculation and found that the price of the machine is
+not the most significant part of the cutting costs.
+
+The cheapest laser cutters for cutting MDF cost about US$8000.
+Suppose one of them can cut at this same 24 mm per second, making the
+costs comparable to the ULS machine I’m using at Max58, and that its
+depreciation time is only a year, because it catches on fire, needs
+expensive parts replaced, or is superseded by a newer model.  Further
+suppose that it's only in use 6 hours a day, 6 days a week, because
+it’s being used on a basis similar to that of the Max58 machine — only
+during business hours, and sometimes idle even then.
+
+That amortizes its cost over only 1872 hours, or US$4.27 of
+depreciation per hour, or US$0.0012 per second!  This is about
+AR$0.018 per second, which is about a factor of 22 less than what
+they’re charging me.  So 95.5% of the cost comes from other factors
+than just depreciating the machine.
+
+Of course, their actual machine is considerably better than the
+US$8000 machine, so the depreciation costs might be three or four
+times higher, amounting to as much as 20% of the price.
+
+They also have a full-time employee who is occupied primarily with the
+laser cutter (it switches off between two of them actually.)  This
+probably costs about AR$20k per month, which is about US$1300.
+Divided over those same 36 hours per week, that’s about US$8.40 per
+hour, which is almost twice the cost of the minimal machine
+itself — and another 10% of what they’re charging me.
+
+This leaves about 70% of Max58’s costs unaccounted for.
+
+This suggests that a club-owned laser cutter like the one at GarageLab
+might be considerably cheaper than the Max58 cutter, though not by
+more than a factor of three or four.  So might a for-pay one at
+another shop.
