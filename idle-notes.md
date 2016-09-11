@@ -34,7 +34,11 @@ is kind of promising. I don’t think it will work in that form for
 things like the inside divots on the slits in Cut 5.  Also, he
 sugested using PostScript’s flattenpath operator to approximate curves
 with line segments, which is probably a much quicker hack than the
-cost-model optimization I was thinking of doing.
+cost-model optimization I was thinking of doing.  This would allow me
+to use PostScript fonts in a reasonable way, too.  I’d have to change
+my cost-model code to do a `pathforall` at `stroke` time instead of
+redefining `moveto`, `lineto`, and their `r` variants.  That would
+also allow me to use things like `closepath`.
 
 Other fairly immediate things to try fabricating include:
 
@@ -42,6 +46,9 @@ Other fairly immediate things to try fabricating include:
   Saturday night, in fact).
 
 - A ruler, being the simplest of all measuring instruments.
+
+- Other similar measuring instruments: protractor, thread gauge, screw
+  diameter gauge, pipe diameter gauge, things like that.
 
 - A flexural weighing scale, using the standard linear-motion flexure
   to measure weight or force.

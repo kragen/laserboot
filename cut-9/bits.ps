@@ -1,0 +1,147 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 2297 1276
+%%Pages: 1
+%%BeginProlog
+% Trying to do some really simple parametric design in PostScript.
+% This file is a construction set I designed based on some work by
+% Matt Heck.  I call it Heckballs.
+/inch 72 def
+/mm_size inch 25.4 div def
+/bdef { bind def } bind def
+/inches { inch mul } bdef
+/mm { mm_size mul } bdef
+% These colors come from the Max58 service bureau.
+/cutting { 1 0 0 setrgbcolor } bdef
+/marking { 0 0 1 setrgbcolor } bdef
+/engraving { 0 0 0 setrgbcolor } bdef
+
+% Debugger:
+/dump { dup load exch (                        ) cvs print ( = ) print === } bdef
+/dumpmm {
+    dup load exch (                         ) cvs print
+    ( = ) print
+    1 mm div (       ) cvs print
+    ( mm\n) print
+} bdef
+
+/max58-dimensions { 810 mm 450 mm } bdef
+
+/thickness 3 mm def
+% Allow this much clearance to allow tabs to pass through slots
+% without colliding.  At exactly 3.0 mm, the slots grip tightly (at
+% least during a previous test), while at 3.15 mm, there is
+% significant slack in the joints, and assemblies sometimes fall apart
+% under their own weight.  3.03 mm is about right, but sometimes still
+% falls apart and sometimes grips too tightly.
+/slop 0.03 mm def
+
+% Measurement by redefining the path-construction operators (the ones
+% I'm using, anyway.)
+
+/orig-rlineto /rlineto load def
+/orig-rmoveto /rmoveto load def
+/orig-lineto /lineto load def
+/orig-moveto /moveto load def
+% Calculate distance from x1 y1 to x2 y2
+/dist { 3 2 roll sub  3 1 roll sub  dup mul exch  dup mul add  sqrt } bdef
+/total-points 0 def             % Total number of points drawn
+/total-distance 0 def           % Total distance drawn
+/increment-points { /total-points total-points 1 add def } bdef
+/mark-point { currentpoint /lasty exch def /lastx exch def } bdef
+/measure {
+    /total-distance  lastx lasty currentpoint dist  total-distance add  def
+} bdef
+/moveto { orig-moveto increment-points } bdef
+/rmoveto { orig-rmoveto increment-points } bdef
+/lineto { mark-point  orig-lineto  measure increment-points } bdef
+/rlineto { mark-point orig-rlineto measure increment-points } bdef
+/measurement-report {
+    (Totals: ) print
+    total-points (      ) cvs print
+    ( vertices; ) print
+    total-distance 1 mm div (       ) cvs print
+    ( mm drawn.\nEstimated cutting time ) print
+    total-points .06 mul total-distance 24 mm div add 5 add dup
+    (       ) cvs print
+    ( seconds, estimated Max58 cost AR$) print
+    0.40 mul (       ) cvs print
+    (.\n) print
+} bdef
+
+% Turtle graphics.
+
+/seth { /theta exch def } def
+/rt { theta add seth } def
+/lt { neg rt } def
+/pd { /turtle-pen {rlineto} def } def
+/pu { /turtle-pen {rmoveto} def } def
+/here { [ /turtle-pen load  theta  currentpoint ] } def
+/return { aload pop  moveto  seth  /turtle-pen exch def } def
+/fd { dup  theta sin mul  exch theta cos mul  turtle-pen } def
+pd  0 seth
+
+%%EndProlog
+%%Page: 1 1
+save
+
+.001 setlinewidth
+
+/upmm { 1 mm fd  90 lt .5 mm fd 90 rt } def
+/downmm { 1 mm fd  90 rt .5 mm fd 90 lt } def
+
+/markcm {
+    4 { upmm downmm } repeat
+    upmm 1 mm fd
+} def
+
+/upcm { markcm 90 lt .5 mm fd 90 rt } def
+/downcm { markcm 90 rt 1.5 mm fd 90 lt } def
+
+cutting
+
+0 0 moveto
+max58-dimensions  exch 0 lineto
+0 0 moveto 0 lineto
+stroke
+
+/rulerwidth 10 mm def
+3 mm 3 mm moveto
+90 rt
+3 {
+    500 mm fd
+    90 lt  rulerwidth fd
+    90 lt  6 {
+        3 { upcm downcm } repeat
+        % Leave a 500-micron tab every 4 cm to prevent droop during
+        % cutting.  This is a smaller tab than I've used before but
+        % I'm worried about spoiling the edge.
+        upcm markcm 90 rt pu 0.5 mm fd pd 1 mm fd 90 lt
+    } repeat upcm markcm
+    90 lt  rulerwidth 1.5 mm sub fd
+    here
+        0 rulerwidth 2 div rmoveto
+        4 { 100 mm 0 rmoveto here 0.5 mm fd return } repeat
+    return
+    % Sometimes people would like rulers that include non-metric units
+    % as well.  So, this makes a mark (well, a hole) every Assyrian
+    % susi.  20 susis is an Assyrian palm, which gets a hole out of
+    % line.  Six palms is a cubit, but this ruler is less than a cubit
+    % long.  This information is from Adrian Mariano's units.dat file.
+    here
+        0 rulerwidth 4 div rmoveto
+        5 {
+            19 { 4.572 mm 0 rmoveto here 0.4 mm fd return } repeat
+            4.572 mm 0 rmoveto here -0.4 mm fd return
+        } repeat
+    return
+    90 lt
+    0 rulerwidth 1.2 mul rmoveto
+} repeat
+
+stroke
+
+measurement-report
+
+restore
+showpage
+%%EOF
