@@ -30,11 +30,11 @@ Practical (?) problems to solve with this shit:
 - a new office chair
 - a comb
 - a couch
-- a dining room table for the new house
+- a dining room table (or coffee table) for the new house
 - refrigerator shelves for the new house
-- a spring scale
+- a spring scale (as a single flexure)
 - a grabber
-- a construction set
+- a construction set (Heckballs)
 - a mechanical display
 - saw blades
 - a spool of thread
@@ -52,6 +52,20 @@ Practical (?) problems to solve with this shit:
 - gears
 - a spice rack
 - a piano keyboard
+- another silly fractal
+- A toybox to store the existing Heckballs prototypes in
+- a flexural gantry
+- bookshelves
+- a twisted beam
+- a dodecahedron
+- lattice hinges
+- a lamina-emergent mechanism with lattice hinges
+- a flexural toggle joint
+- a single-track-Gray-code-based display
+- a flexural "snake" with limited bend to prevent overstress
+- snap joints
+- a mechanical logic lookup table
+- Tensegrity structures
 
 I need to make a plan to start making stuff regularly.  I think I will
 make a queue with some finished fallback things in it and fabricate a
@@ -74,9 +88,10 @@ US$15 per day with daily cuts, even though today's can be a twofer
 since nothing is open tomorrow.  Maybe I should shoot for US$20 per
 day instead, bringing down the time-to-wishing-I'd-bought-a-laser-
 cutter to 400 days instead of 533 (which was a lot less than three
-years anyway.
+years anyway.)
 
 At US$20/day, the budget is US$610 per month.
 
-Geez, that's more than I’m paying in rent.  Maybe I should shoot
-lower!
+Geez, that’s more than I’m paying in rent.  Maybe I should shoot
+lower!  Also I am spending way more time designing things than I am on
+cutting them.

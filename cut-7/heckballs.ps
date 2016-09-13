@@ -1,0 +1,305 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 2297 1276
+%%Pages: 1
+%%BeginProlog
+% Trying to do some really simple parametric design in PostScript.
+% This file is a construction set I designed based on some work by
+% Matt Heck.  I call it Heckballs.
+/inch 72 def
+/mm_size inch 25.4 div def
+/bdef { bind def } bind def
+/inches { inch mul } bdef
+/mm { mm_size mul } bdef
+% These colors come from the Max58 service bureau.
+/cutting { 1 0 0 setrgbcolor } bdef
+/marking { 0 0 1 setrgbcolor } bdef
+/engraving { 0 0 0 setrgbcolor } bdef
+
+% Debugger:
+/dump { dup load exch (                        ) cvs print ( = ) print === } bdef
+/dumpmm {
+    dup load exch (                         ) cvs print
+    ( = ) print
+    1 mm div (       ) cvs print
+    ( mm\n) print
+} bdef
+
+/max58-dimensions { 810 mm 450 mm } bdef
+
+/thickness 3 mm def
+% Allow this much clearance to allow tabs to pass through slots
+% without colliding.  At exactly 3.0 mm, the slots grip tightly (at
+% least during a previous test), while at 3.15 mm, there is
+% significant slack in the joints, and assemblies sometimes fall apart
+% under their own weight.  3.03 mm is about right, but sometimes still
+% falls apart and sometimes grips too tightly.
+/slop 0.03 mm def
+
+% Measurement by redefining the path-construction operators (the ones
+% I'm using, anyway.)
+
+/orig-rlineto /rlineto load def
+/orig-rmoveto /rmoveto load def
+/orig-lineto /lineto load def
+/orig-moveto /moveto load def
+% Calculate distance from x1 y1 to x2 y2
+/dist { 3 2 roll sub  3 1 roll sub  dup mul exch  dup mul add  sqrt } bdef
+/total-points 0 def             % Total number of points drawn
+/total-distance 0 def           % Total distance drawn
+/increment-points { /total-points total-points 1 add def } bdef
+/mark-point { currentpoint /lasty exch def /lastx exch def } bdef
+/measure {
+    /total-distance  lastx lasty currentpoint dist  total-distance add  def
+} bdef
+/moveto { orig-moveto increment-points } bdef
+/rmoveto { orig-rmoveto increment-points } bdef
+/lineto { mark-point  orig-lineto  measure increment-points } bdef
+/rlineto { mark-point orig-rlineto measure increment-points } bdef
+/measurement-report {
+    (Totals: ) print
+    total-points (      ) cvs print
+    ( vertices; ) print
+    total-distance 1 mm div (       ) cvs print
+    ( mm drawn.\nEstimated cutting time ) print
+    total-points .06 mul total-distance 24 mm div add 5 add dup
+    (       ) cvs print
+    ( seconds, estimated Max58 cost AR$) print
+    0.40 mul (       ) cvs print
+    (.\n) print
+} bdef
+
+% Turtle graphics.
+
+/seth { /theta exch def } def
+/rt { theta add seth } def
+/lt { neg rt } def
+/pd { /turtle-pen {rlineto} def } def
+/pu { /turtle-pen {rmoveto} def } def
+/here { [ /turtle-pen load  theta  currentpoint ] } def
+/return { aload pop  moveto  seth  /turtle-pen exch def } def
+/fd { dup  theta sin mul  exch theta cos mul  turtle-pen } def
+pd  0 seth
+
+%%EndProlog
+%%Page: 1 1
+save
+
+.001 setlinewidth
+
+cutting
+
+0 0 moveto
+max58-dimensions  exch 0 lineto
+0 0 moveto 0 lineto
+stroke
+
+% This version doesn't yet have:
+% - beams
+% - clips
+% - labels
+% - design rule checks
+% But it's what I've been able to manage so far.
+/sq2 2 sqrt def  /isq2 1 sq2 div def
+/octsize 100 mm def
+/octcenter octsize 2 div def
+% The bounding square of the octagon is
+% 1/sqrt(2) sidelength + sidelength + 1/sqrt(2) sidelength.
+% This means that sidelength is octsize / (1 + sqrt(2)).
+/octratio 1 sq2 add def
+/sidelength octsize octratio div def
+/cornerpos isq2 sidelength mul def
+/slitwidth thickness slop add def
+/freesidelength sidelength slitwidth sub 2 div def
+/halfslit slitwidth 2 div def
+/depth octcenter 2 div thickness 2 div sub def
+/centerspacing octsize 2 depth mul sub def
+
+% Tabs to keep the octagons from separating.
+/tabsize 0.8 mm def
+
+% Overcut to reduce the local stress from twisting at the bottom of
+% slits.
+/overcutsize 0.5 thickness mul def
+
+% Redefining this after the bottom row of octagons will prevent
+% drawing a double line along the bottom.
+/bottom-line { pd } def
+
+/nslit {
+    /slitdepth exch def
+    slitdepth fd
+    here overcutsize fd return
+    90 lt
+    slitwidth fd
+    here 90 rt overcutsize fd return
+    90 lt
+    slitdepth fd
+} bdef
+
+/chamferwidth thickness .75 mul def
+% This does a chamfered corner, but you have to stop drawing early by
+% chamferwidth.
+/chamfer { 45 rt chamferwidth sq2 mul fd 45 rt } def
+
+/chamferside { freesidelength chamferwidth sub fd } bdef
+/chamferslit {
+    chamfer
+    depth chamferwidth sub nslit
+    chamfer
+} bdef
+% Okay, this is starting to get out of hand... but oooone more
+/chamfertabside {
+    pu tabsize fd
+    pd freesidelength tabsize sub chamferwidth sub fd
+} bdef
+/oct {
+    % Start with the turtle in the lower left corner, pointing up.
+    here
+        90 rt  pu  cornerpos fd  135 lt
+        pd chamferside chamferslit chamferside
+        45 rt  pu chamferside pd  chamferslit  pu chamferside %left
+        45 rt  pd chamfertabside chamferslit chamferside
+        45 rt  pu tabsize fd  pd sidelength tabsize sub fd % top
+        45 rt  pd chamferside chamferslit chamferside
+        45 rt  pd chamferside chamferslit chamfertabside % right
+        45 rt  pd chamfertabside chamferslit chamferside
+        45 rt  bottom-line chamferside
+        pd chamfer
+        octcenter chamferwidth sub  nslit
+        chamfer
+        bottom-line chamferside
+        % A quick and dirty way to try a different overcut size on
+        % each octagon.
+        /overcutsize overcutsize 0.5 mm add def
+    return
+} bdef
+
+/beamlength centerspacing 4 mul 2 depth mul add def
+/beamwidth octsize .3 mul def
+/beamtaperangle 36.25 def
+/tan { dup cos exch sin div } bdef
+% Doing the full slot depth on the beams with the right taper doesn't
+% leave space to chamfer the slit.  So this will be an extra
+% shortening of the path, a sort of Kwisatz Haderach, at each end of
+% the beam to enable the beams to be shorter than their theoretical
+% length.
+/beamtruncation 2 thickness mul def
+% The distance from the beginning of the taper to the center of the ball.
+/beamtapertotallength beamwidth 2 div  beamtaperangle tan mul def
+% The part of that distance that's part of the beam.
+/beamtaperinternallength beamtapertotallength thickness sub beamtruncation sub def
+% The diagonal distance.
+/beamtaperdiagonal beamtaperinternallength beamtaperangle cos div def
+% The other side of the right triangle of that taper.
+/beamtaperdepth beamtaperdiagonal beamtaperangle sin mul def
+/straightbeamsidelength beamlength 2 beamtaperinternallength mul sub 2 beamtruncation mul sub def
+/beamendlength beamwidth slitwidth sub 2 div chamferwidth sub beamtaperdepth sub def
+/beamside {
+    90 beamtaperangle sub rt
+    beamtaperdiagonal tabsize sub fd
+    pu tabsize fd pd
+    beamtaperangle rt
+    pu straightbeamsidelength fd pd
+    beamtaperangle rt
+    beamtaperdiagonal fd
+    90 beamtaperangle sub rt
+} bdef
+/beam {
+    here pd beamlength fd return
+    here
+        pu beamtruncation fd
+        pu 90 rt  beamtaperdepth fd  pd  180 lt
+        beamside
+        beamendlength fd
+        chamfer
+        depth beamtruncation sub  chamferwidth sub  nslit
+        chamfer
+        beamendlength fd
+
+        beamside
+        beamendlength fd
+        chamfer
+        depth beamtruncation sub  chamferwidth sub  nslit
+        chamfer
+        beamendlength fd
+    return
+} bdef
+/beamcount 13 def
+
+/row { 
+    oct
+    3 { octsize 0 rmoveto oct } repeat
+} bdef
+
+3 mm 3 mm translate
+
+0 0 moveto
+beamcount beamwidth mul 0 rmoveto
+currentpoint row moveto
+/bottom-line { pu } def % prevent other rows of octagons from cutting a bottom line
+3 { 0 octsize rmoveto  currentpoint  row  moveto } repeat
+
+0 0 moveto  0 seth
+beam beamwidth 0 rmoveto
+beamcount 1 sub { beam beamwidth 0 rmoveto } repeat
+
+beamcount beamwidth mul max58-dimensions exch pop 3 mm 2 mul sub lineto
+
+stroke
+
+(Final overcut size is ) print
+overcutsize 1 mm div (         ) cvs print
+( mm.\n) print
+measurement-report
+
+marking
+
+6 mm 100 mm moveto 0 seth pd
+
+/jecval {
+    here
+        % "J"
+        here 90 rt 3 mm fd 135 rt 1 mm fd return
+        pu 2 mm fd pd
+        % "E"
+        here 135 rt 2 mm fd
+            here 135 lt 1.5 mm fd return
+            90 lt 2 mm fd
+        return
+        pu 2 mm fd pd
+        % "C"
+        here 135 rt 2 mm fd 90 lt 2 mm fd return
+        pu 1 mm fd pd
+        % "V"
+        here 75 rt 3 mm fd 150 lt 3 mm fd return
+        pu 2 mm fd pd
+        % "A" (more like a lambda really)
+        here pu 1 mm fd pd	
+            here 105 rt 1.5 mm fd
+                here 1.5 mm fd return
+                105 lt 0.8 mm fd
+            return
+            here  75 rt 3 mm fd return
+        return
+        pu 2.5 mm fd pd
+        % "L"
+        here 90 rt 3 mm fd 90 lt 1.5 mm fd return
+    return
+} def
+beamcount { jecval beamwidth 0 rmoveto } repeat
+beamcount beamwidth mul octsize .42 mul add octsize .45 mul moveto
+4 {
+    here
+        4 { jecval octsize 0 rmoveto } repeat
+    return
+    0 octsize rmoveto
+} repeat
+
+stroke
+
+(Including marking, assuming marking costs the same as cutting:\n) print
+measurement-report
+
+restore
+showpage
+%%EOF

@@ -95,9 +95,42 @@ use AR$0.40 per second, I get this instead:
 The actual budget they sent me was $190, which was off from my
 estimate by a bit over 15%.
 
-I made some changes and got this:
+I made some changes, going from 6 iterations of the L-system to 7,
+diminishing the side size, and changing the angle and side, and got
+this (using 60 ms per vertex plus a second per 24 mm of cut):
 
 > Totals: 2196 vertices; 11328.3 mm drawn.
 > Estimated cutting time 608.771 seconds, estimated Max58 cost AR$243.508.
 
-Sending that off to see what they say...
+Sending that off to see what they say... but I think I sent it too
+late to get a reply today, since I sent it at 18:33 and they close at
+19:00 (according to the hours on their door; on the web site they say
+18:00.)  They sent me a budget of $250, only 3% higher!  So my model
+is in good shape!  The response took 14 hours and 57 minutes.  Once I
+asked them to cut it, there was a delay of 90' waiting for other
+people’s jobs to get cut; the actual cutting took 9'33" = 573", about
+6% less than the cutting time estimate.
+
+Observations
+------------
+
+The cut shape is fairly delicate, because it has giant chunks of MDF
+(over a hundred grams) hanging off of single 3.8-millimeter-wide
+connections.  It can support its own weight, but only barely.  I did
+break the negative part by careless handling — setting it down on a
+carpeted floor a bit too hard broke off one of the triangles on the
+inside.
+
+A few of the corners didn’t come out sharp, but rather rounded, and
+their hexagons were somewhat distorted in shape.  I suspect that this
+was a result of the MDF drooping as it was cut, since it wasn’t
+supported by any tabs at the time, only through its own elasticity
+from a long way away under its own weight.  The radius of some of the
+corners was as much as two or three millimeters.  This may be due to
+fire damage in the supporting bed in the laser cutter causing its
+surface to be uneven.  However, occasional tabs (short skips in the
+line) would solve the problem.
+
+The bottom of the triangle is at places only 3.8 mm · sin(60°) =
+3.29 mm thick.  This gives it enough flexibility to droop visibly
+while hanging on the wall.
